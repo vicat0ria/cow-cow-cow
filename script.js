@@ -1,14 +1,17 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-const userSize = 50;
-const targetLocation = { x: 100, y: 100 };
-let userLocation = { x: 50, y: 50 };
+const userSize = 100;
+const targetLocation = { x: 300, y: 400 };
+let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 
 function loadGame() {
     document.getElementById('container').style.display = 'none';
     document.getElementById('gameCanvas').style.display = 'block';
+    document.getElementById('coordinates').style.display = 'block';
+    document.getElementById('x-coordinate').innerHTML = userLocation.x; 
+    document.getElementById('y-coordinate').innerHTML = userLocation.y;
     draw(); 
 }
 
@@ -37,12 +40,13 @@ function draw() {
 }
 
 function resetGame() {
-    userLocation = { x: 50, y: 50 };
+    userLocation = { x: 0, y: 0 };
 }
 
 document.addEventListener('keydown', (event) => {
-    const speed = 50;
+    const speed = 100;
 
+    // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
             userLocation.y -= speed;
@@ -57,4 +61,14 @@ document.addEventListener('keydown', (event) => {
             userLocation.x += speed;
             break;
     }
+
+    // alert for the boundaries
+    if (userLocation.x < 0) {
+        alert('beyond the wall');
+        resetGame();
+    }
+
+    // update the location: for testing purposes
+    document.getElementById('x-coordinate').innerHTML = userLocation.x; 
+    document.getElementById('y-coordinate').innerHTML = userLocation.y;
 });

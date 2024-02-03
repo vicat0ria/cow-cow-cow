@@ -13,7 +13,6 @@ function loadGame() {
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
     draw(); 
-    getCoords();
 }
 
 function getCoords() {
@@ -21,7 +20,13 @@ function getCoords() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/receive_value', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({ value: userLocation.x }));
+    var coords = {
+        userX: userLocation.x,
+        userY: userLocation.y,
+        targetX: targetLocation.x,
+        targetY: targetLocation.y
+    }
+    xhr.send(JSON.stringify(coords));
 }
 
 function draw() {
@@ -45,6 +50,7 @@ function draw() {
         resetGame();
     }
 
+    getCoords();
     requestAnimationFrame(draw);
 }
 

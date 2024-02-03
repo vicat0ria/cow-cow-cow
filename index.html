@@ -6,7 +6,7 @@
     <title>Maze Game</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
-    <script src='main.js'></script>
+    <script src='script.js'></script>
 </head>
 <body>
     
@@ -17,12 +17,43 @@
         <div class="menu">
             <button class="menu-button" onclick="loadGame()">Play</button>
             <button class="menu-button">Leaderboard</button>
-            <button class="menu-button">Settings</button>
+            <button class="menu-button" onclick="loadSettings(); navigateTo('settings');">Settings</button>
         </div>
     </div>
     
-    <div>
+    <div id="settings">
+        <h1>SETTINGS</h1>
+        <div class="menu">
+            <button class="menu-button" onclick="loadColorContrastSettings(); navigateTo('color-contrast-settings');">Color Contrast</button>
+            <button class="menu-button" onclick="loadFontSizeSettings(); navigateTo('font-size-settings');">Font Size</button>
+            <button class="menu-button" onclick="loadSettings()">Change Key-Binds</button>
+            <button class="menu-button" onclick="loadSettings()">Voice-Over On</button>
+        </div>
+        <button onclick="goBack()">Go Back</button></div>
+    </div>
 
+    <div id="font-size-settings">
+        <h1>FONT SIZE SETTINGS</h1>
+        <div class="menu font-sizes">
+            <button class="menu-button small-size" onclick="changeFontSize('small')">Small</button>
+            <button class="menu-button medium-size" onclick="changeFontSize('medium')">Medium</button>
+            <button class="menu-button large-size" onclick="changeFontSize('large')">Large</button>
+        </div>
+        <div class="menu">
+            <button class="menu-button" style="margin-bottom: 0;">Example</button>
+        </div>
+        <button onclick="goBack()">Go Back</button></div>
+    </div>
+
+    <div id="color-contrast-settings">
+        <h1>COLOR CONTRAST SETTINGS</h1>
+        <div class="menu">
+            <button class="menu-button" onclick="changeColorScheme('default')">Default</button>
+            <button class="menu-button" onclick="changeColorScheme('light')">Light</button>
+            <button class="menu-button" onclick="changeColorScheme('dark')">Dark</button>
+            <button class="menu-button" onclick="changeColorScheme('yellowBlue')">Yellow Blue</button>
+        </div>
+        <button onclick="goBack()">Go Back</button></div>
     </div>
 </body>
 </html>

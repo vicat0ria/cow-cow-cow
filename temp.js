@@ -1,6 +1,5 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-var walls = [];
 
 var userSize;
 var targetLocation;
@@ -48,28 +47,19 @@ document.addEventListener('keydown', (event) => {
     // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -150)){
-                userLocation.y -= speed;
-            }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
+            if (checkCollision()); 
+                alert("hitting wall");
+                break;
+            userLocation.y -= speed;
             break;
         case 'ArrowDown':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
-                userLocation.y += speed;
-            }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
+            userLocation.y += speed;
             break;
         case 'ArrowLeft':
-            if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
-                userLocation.x -= speed;
-            }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
+            userLocation.x -= speed;
             break;
         case 'ArrowRight':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
-                userLocation.x += speed;
-            }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
+            userLocation.x += speed;
             break;
     }
 
@@ -117,26 +107,9 @@ function levelDecision(level) {
 function addWalls(level) {
     switch(level) {
         case 2:
-            walls = [];
-            ctx.fillStyle = 'pink';
-            ctx.fillRect(0, 150, userSize, userSize*3);
-            ctx.fillRect(300, 0, userSize, userSize*2);
-            walls.push([0,1],[0,2],[0,3],[2,0],[2,1]);
-            break;
+            ctx.fillStyle = 'red';
+            ctx.fillRect(0, 150, userSize, userSize);
+            ctx.fillRect(300, 300, userSize, userSize);
     }
 }
  
-function checkWallCollision(x, y, xMove, yMove) {
-    for (const wall of walls) {
-        const wallX = wall[0] * userSize;
-        const wallY = wall[1] * userSize;
-        if (
-            x + xMove == wallX &&
-            y + yMove == wallY
-        ) {
-            return true;
-        }
-    }
-
-    return false;
-}

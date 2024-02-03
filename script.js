@@ -1,57 +1,94 @@
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+var targetLocation;
+let userLocation = { x: 0, y: 0 };
+let hasWon = false; 
+const userSize = 150;
+
 function loadGame() {
     document.getElementById('container').style.display = 'none';
     document.getElementById('gameCanvas').style.display = 'block';
+    document.getElementById('x-coordinate').innerHTML = userLocation.x; 
+    document.getElementById('y-coordinate').innerHTML = userLocation.y;
+    draw(); 
+}
 
-    // loading the game canvas for playing 
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d'); // to define the game will be in 2d, allows for the filling and other properties
-
-    const boxSize = 50;
-    let userLocation = { x: 50, y: 50 };
-    let hiddenObjectLocation = {x: 100, y: 100}; // hard coded for testing purposes
-    let hasWon = false;
-
+function draw() {
+    // Clear the canvas
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // the user will be white -> change depending on the UI design
+    // Draw user
     ctx.fillStyle = 'white';
-    ctx.fillRect(userLocation.x, userLocation.y, boxSize, boxSize);
+    ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
 
-    // show the hidden target if won
     if (hasWon) {
         ctx.fillStyle = 'red';
-        ctx.fillRect(hiddenObjectLocation.x, hiddenObjectLocation.y, boxSize, boxSize);
+        ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
     }
 
-    // the user is in the target cell -> remember not just around but exactly on the cell
-    if (!hasWon &&
-        userLocation.x == hiddenObjectLocation.x &&
-        userLocation.y == hiddenObjectLocation.y) {
-        alert('Congratulations! You found the hidden object. You won!');
-        hasWon = true;
+    // Check if the user has reached the hidden object
+    if (userLocation.x == targetLocation.x &&
+        userLocation.y == targetLocation.y) {
+        alert('Congratulations! You found the hidden object.');
+        resetGame();
     }
 
-    document.addEventListener('keydown', (event) => {
-        const speed = 10; // for testing; can be changed
-
-        switch (event.key) {
-            case 'ArrowUp':
-                userLocation.y -= speed;
-                break;
-            case 'ArrowDown':
-                userLocation.y += speed;
-                break;
-            case 'ArrowLeft':
-                userLocation.x -= speed;
-                break;
-            case 'ArrowRight':
-                userLocation.x += speed;
-                break;
-        }
-    });
-
+    if (pageIndex === 1) {
+        requestAnimationFrame(draw);
+    }
 }
+
+function resetGame() {
+    userLocation = { x: 0, y: 0 };
+    document.getElementById('x-coordinate').innerHTML = 0; 
+    document.getElementById('y-coordinate').innerHTML = 0;
+}
+
+document.addEventListener('keydown', (event) => {
+    const speed = 150;
+
+    // update the location on screen 
+    switch (event.key) {
+        case 'ArrowUp':
+            userLocation.y -= speed;
+            break;
+        case 'ArrowDown':
+            userLocation.y += speed;
+            break;
+        case 'ArrowLeft':
+            userLocation.x -= speed;
+            break;
+        case 'ArrowRight':
+            userLocation.x += speed;
+            break;
+    }
+
+    // customized alert for boundaries
+    if (userLocation.x < 0) {
+        console.log('You are hitting the left wall');
+        userLocation.x = userLocation.x + 150;
+    }
+    if (userLocation.x > 500) {
+        console.log('You are hitting the right wall');
+        userLocation.x = userLocation.x - 150;
+    }
+    if (userLocation.y < 0) {
+        console.log('You are hitting the top wall');
+        userLocation.y = userLocation.y + 150;
+    }
+    if (userLocation.y > 500) {
+        console.log('You are hitting the bottom wall');
+        userLocation.y = userLocation.y - 150;
+    }
+
+    // update the location: for testing purposes
+    document.getElementById('x-coordinate').innerHTML = userLocation.x; 
+    document.getElementById('y-coordinate').innerHTML = userLocation.y;
+});
+
+
 
 function loadSettings() {
     document.getElementById('container').style.display = 'none';
@@ -97,8 +134,8 @@ function changeColorScheme(scheme) {
         root.setProperty('--background-color', '#FFFFFF');
         break;
       case 'dark':
-        root.setProperty('--text-color', '#CCCCCC');
-        root.setProperty('--background-color', '#1A1A1A');
+        root.setProperty('--text-color', '#F1F3F4');
+        root.setProperty('--background-color', '#202124');
         break;
       case 'yellowBlue':
         root.setProperty('--text-color', '#FAFF00');
@@ -117,8 +154,6 @@ function changeColorScheme(scheme) {
         document.getElementById(pageId).style.display = 'flex';
         // Push the new page onto the stack
         navigationStack.push(pageId);
-        localStorage.setItem('navigationStack', JSON.stringify(navigationStack));
-
     }
 
     
@@ -130,14 +165,8 @@ function changeColorScheme(scheme) {
             // Show the previous page
             let previousPageId = navigationStack[navigationStack.length - 1];
             document.getElementById(previousPageId).style.display = 'flex';
-            // Update localStorage
-            localStorage.setItem('navigationStack', JSON.stringify(navigationStack));
         }
     }
     
-    // // Ensure all pages except the first in the navigationStack are hidden initially
-    // document.addEventListener('DOMContentLoaded', () => {
-    //     navigationStack = ['container']; // Reset stack to initial state if needed
-    //     // Optionally, setup initial visibility state of pages here
-    // });
+
     

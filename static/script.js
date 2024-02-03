@@ -13,6 +13,15 @@ function loadGame() {
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
     draw(); 
+    getCoords();
+}
+
+function getCoords() {
+    // Using AJAX to send the value to Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/receive_value', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({ value: userLocation.x }));
 }
 
 function draw() {

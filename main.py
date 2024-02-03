@@ -8,11 +8,13 @@ app = Flask(__name__,template_folder="templates")
 def hello(): 
     return render_template('index.html') 
 
-@app.route('/process-data', methods=['POST']) 
-def process_data(): 
-    data = request.json['data'] 
-    result = sum(data) 
-    return jsonify({'result': result}) 
+@app.route('/static', methods=['POST']) 
+def get_coords(): 
+    data = request.json['userLocation'] 
+    print(data)
+    return data 
   
 if __name__ == '__main__': 
     app.run(debug=True) 
+
+    get_coords()

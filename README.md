@@ -13,7 +13,11 @@
 ## Installation
 
 1. Clone the repository:
+SSH:
 `git clone git@github.com:vicat0ria/cow-cow-cow.git`
+
+HTTPS:
+`git clone https://github.com/vicat0ria/cow-cow-cow.git`
 
 2. Navigate to the project directory:
 `cd cow-cow-cow`

@@ -41,6 +41,8 @@ function draw() {
 
 function resetGame() {
     userLocation = { x: 0, y: 0 };
+    document.getElementById('x-coordinate').innerHTML = 0; 
+    document.getElementById('y-coordinate').innerHTML = 0;
 }
 
 document.addEventListener('keydown', (event) => {
@@ -62,10 +64,22 @@ document.addEventListener('keydown', (event) => {
             break;
     }
 
-    // alert for the boundaries
+    // customized alert for boundaries
     if (userLocation.x < 0) {
-        alert('beyond the wall');
-        resetGame();
+        console.log('You are hitting the left wall');
+        userLocation.x = userLocation.x + 100;
+    }
+    if (userLocation.x > 700) {
+        console.log('You are hitting the right wall');
+        userLocation.x = userLocation.x - 100;
+    }
+    if (userLocation.y < 0) {
+        console.log('You are hitting the top wall');
+        userLocation.y = userLocation.y + 100;
+    }
+    if (userLocation.y > 500) {
+        console.log('You are hitting the bottom wall');
+        userLocation.y = userLocation.y - 100;
     }
 
     // update the location: for testing purposes

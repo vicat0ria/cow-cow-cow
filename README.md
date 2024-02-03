@@ -9,6 +9,8 @@
 
 - A modern web browser with JavaScript enabled
 - Internet connection
+- Audio output device 
+- Keyboard with arrow keys
 
 ## Installation
 

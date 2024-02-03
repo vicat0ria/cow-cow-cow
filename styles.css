@@ -45,6 +45,8 @@ h2{
     outline: 3px solid yellow; 
 }
 #gameCanvas {
-    width: 800; 
-    height: 800; 
+    /* width: 800; 
+    height: 800; */
+    background-color: black; 
+    display: none;
 }

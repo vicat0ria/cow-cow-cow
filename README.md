@@ -3,7 +3,7 @@
 ## How to Play
 
 - Listen to the audio cues to understand your surroundings within the maze.
-- Solve the maze by finding the exit, guided by auditory hints and feedback.
+- Solve the maze by finding the object, guided by auditory hints and feedback.
 
 ## Prequisites 
 

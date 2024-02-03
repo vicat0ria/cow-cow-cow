@@ -1,12 +1,20 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+var pageIndex = 0;
 
 const userSize = 100;
 const targetLocation = { x: 300, y: 400 };
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 
+function refresh() {    
+    if (pageIndex = 1) {
+        loadGame();
+    }
+}
+
 function loadGame() {
+    pageIndex = 1; 
     document.getElementById('container').style.display = 'none';
     document.getElementById('gameCanvas').style.display = 'block';
     document.getElementById('coordinates').style.display = 'block';
@@ -21,7 +29,7 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw user
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'pink';
     ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
 
     if (hasWon) {

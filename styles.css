@@ -3,19 +3,31 @@
     --h1-font-size: 3em; /* Example default size */
     --h2-font-size: 2em; /* Example default size */
     --button-font-size: 25px; /* Example default size */
-    --span-font-size: 15px;
+    --p-font-size: 20px;
     --text-color: #000000; /* Default text color */
     --background-color: #FFFFFF; /* Default background color */
 
     --border-width: 4px;
     --border-style: solid;
     --border-color: black;
+
+    --width: 350px;
   }
 body{
     background-color: var(--background-color);
     color: var(--text-color);   
 }
-#container, #settings, #color-contrast-settings {
+
+.sr-only {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+
+#container, #settings, #color-contrast-settings, #key-bind-settings {
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -45,8 +57,8 @@ body{
 h1{
     font-size: var(--h1-font-size);
 }
-span{
-    font-size: var(--span-font-size);
+p{
+    font-size: var(--p-font-size);
 }
 h2{
     font-size: var(--h2-font-size);
@@ -65,11 +77,12 @@ h2{
     font-size: var(--button-font-size);
     font-weight: bold;
     
+    width: var(--width);
+
     padding: 20px 40px; 
     cursor: pointer;
     margin: 15px 0; 
     display: block;
-    width: 350px; 
     outline: none;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, outline 0.3s;
     border-radius: 10px; 
@@ -77,8 +90,8 @@ h2{
 
 .menu-button:hover,
 .menu-button:focus {
-    background-color: black;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--background-color);
     border-color: yellow; 
     outline: 3px solid yellow; 
 }
@@ -115,5 +128,8 @@ h2{
     display:none;
 }
 #color-contrast-settings{
+    display:none;
+}
+#key-bind-settings{
     display:none;
 }

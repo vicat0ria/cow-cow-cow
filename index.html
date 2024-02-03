@@ -1,58 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Maze Game</title>
+    <title>Maze Game for Visually Impaired Individuals</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
-    <script src='script.js'></script>
 </head>
 <body>
-    
-    <div id="container">
-        <h1 id="intro-heading">Marco Polo</h1>
-        <span id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</span>
-        <h2 id="main-heading">MAIN MENU</h2>
-        <div class="menu">
-            <button class="menu-button" onclick="loadGame()">Play</button>
-            <button class="menu-button">Leaderboard</button>
-            <button class="menu-button" onclick="loadSettings(); navigateTo('settings');">Settings</button>
-        </div>
-    </div>
-    
-    <div id="settings">
-        <h1>SETTINGS</h1>
+    <div aria-live="assertive" id="accessibilityAnnouncer" class="sr-only"></div>
+
+    <main id="container" role="main">
+        <header>
+            <h1 id="intro-heading">Marco Polo</h1>
+            <p id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</p>
+        </header>
+        
+        <nav aria-label="Main menu">
+            <h2 id="main-heading">MAIN MENU</h2>
+            <div class="menu">
+                <button class="menu-button" onclick="loadGame()">Play</button>
+                <button class="menu-button">Leaderboard</button>
+                <button class="menu-button" onclick="loadSettings(); navigateTo('settings');">Settings</button>
+            </div>
+        </nav>
+    </main>
+
+    <section id="settings" aria-labelledby="settings-heading" hidden>
+        <h1 id="settings-heading">SETTINGS</h1>
+        <p>Change color contrast, font size, key binds, and voice over settings.</p>
         <div class="menu">
             <button class="menu-button" onclick="loadColorContrastSettings(); navigateTo('color-contrast-settings');">Color Contrast</button>
             <button class="menu-button" onclick="loadFontSizeSettings(); navigateTo('font-size-settings');">Font Size</button>
-            <button class="menu-button" onclick="loadSettings()">Change Key-Binds</button>
-            <button class="menu-button" onclick="loadSettings()">Voice-Over On</button>
+            <button class="menu-button" onclick="loadKeyBindSettings(); navigateTo('key-bind-settings');">Change Key-Binds</button>
+            <button class="menu-button" aria-live="polite" onclick="toggleVoiceOver()">Voice-Over: <span id="voice-over-status">On</span></button>
         </div>
-        <button onclick="goBack()">Go Back</button></div>
-    </div>
+        <button onclick="goBack()">Go Back</button>
+    </section>
 
-    <div id="font-size-settings">
-        <h1>FONT SIZE SETTINGS</h1>
+    <section id="font-size-settings" aria-labelledby="font-size-heading" hidden>
+        <h1 id="font-size-heading">FONT SIZE SETTINGS</h1>
         <div class="menu font-sizes">
             <button class="menu-button small-size" onclick="changeFontSize('small')">Small</button>
             <button class="menu-button medium-size" onclick="changeFontSize('medium')">Medium</button>
             <button class="menu-button large-size" onclick="changeFontSize('large')">Large</button>
         </div>
         <div class="menu">
-            <button class="menu-button" style="margin-bottom: 0;">Example</button>
+            <div class="menu-button" style="margin-bottom: 0;" tabindex="0">Example</div>
         </div>
-        <button onclick="goBack()">Go Back</button></div>
-    </div>
+        <button onclick="goBack()">Go Back</button>
+    </section>
 
-    <div id="color-contrast-settings">
-        <h1>COLOR CONTRAST SETTINGS</h1>
+    <section id="color-contrast-settings" aria-labelledby="color-contrast-heading" hidden>
+        <h1 id="color-contrast-heading">COLOR CONTRAST SETTINGS</h1>
         <div class="menu">
             <button class="menu-button" onclick="changeColorScheme('default')">Light Theme</button>
             <button class="menu-button" onclick="changeColorScheme('dark')">Dark Theme</button>
             <button class="menu-button" onclick="changeColorScheme('yellowBlue')">Yellow Blue Theme</button>
         </div>
-        <button onclick="goBack()">Go Back</button></div>
-    </div>
+        <button onclick="goBack()">Go Back</button>
+    </section>
+
+    <section id="key-bind-settings" aria-labelledby="key-bind-heading" hidden>
+        <h1 id="key-bind-heading">KEY-BIND SETTINGS</h1>
+        <div class="menu" aria-describedby="key-bind-instructions">
+            <div id="key-bind-instructions" class="sr-only">
+                Focus on an input field and press a key to set it as a new binding.
+            </div>
+            <label for="bind-up">Up: <input id="bind-up" type="text" placeholder="Press a key..." aria-label="Bind Up Key" readonly></label>
+            <label for="bind-down">Down: <input id="bind-down" type="text" placeholder="Press a key..." aria-label="Bind Down Key" readonly></label>
+            <label for="bind-left">Left: <input id="bind-left" type="text" placeholder="Press a key..." aria-label="Bind Left Key" readonly></label>
+            <label for="bind-right">Right: <input id="bind-right" type="text" placeholder="Press a key..." aria-label="Bind Right Key" readonly></label>            
+        </div>
+        <div class="menu">
+            <button class="menu-button" onclick="saveKeyBindings()">Save Key Bindings</button>
+        </div>
+        <button onclick="goBack()">Go Back</button>
+    </section>
+
+    <script src='script.js'></script>
 </body>
 </html>

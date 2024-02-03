@@ -9,7 +9,6 @@
 
 - A modern web browser with JavaScript enabled
 - Internet connection
-- Speaker
 
 ## Installation
 

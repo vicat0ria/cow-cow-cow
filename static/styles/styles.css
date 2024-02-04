@@ -174,3 +174,14 @@ input[type="text"]:hover {
 #create-user-id{
     display:none;
 }
+
+.levels-container { 
+    display: grid; 
+    
+}
+
+.levels-button { 
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+}

@@ -15,6 +15,7 @@ function loadGame(){
 
     draw(); 
     // playMusic1();
+    startMusic();
 }
 
 function draw() {
@@ -32,7 +33,6 @@ function draw() {
     }
 
     levelDecision(1);
-    startMusic();
 
     // Check if the user has reached the hidden object
     if (userLocation.x == targetLocation.x &&
@@ -46,15 +46,29 @@ function draw() {
 }
 
 function startMusic(){
-    var volumeLevel = 1 / (Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y));
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //0.16, 0.2, 0.25, 0.33, 0.5, 1
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    volumeLevel = 1 - volumeLevel + step;
     console.log(volumeLevel);
     music.level0.volume(volumeLevel);
+    sfx.step.volume(volumeLevel);
     playMusic1();
 }
 
 function changeVolume(){
-    var volumeLevel = 1 / (Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y));
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    volumeLevel = 1 - volumeLevel + step;
     music.level0.volume(volumeLevel);
+    sfx.step.volume(volumeLevel);
+    console.log(volumeLevel);
 }
 
 function resetGame() {
@@ -76,8 +90,8 @@ document.addEventListener('keydown', (event) => {
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
-            playStep();
             changeVolume();
+            playStep();
             break;
         case 'ArrowDown':
             if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
@@ -87,8 +101,8 @@ document.addEventListener('keydown', (event) => {
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
-            playStep();
             changeVolume();
+            playStep();
             break;
         case 'ArrowLeft':
             if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
@@ -98,8 +112,8 @@ document.addEventListener('keydown', (event) => {
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
-            playStep();
             changeVolume();
+            playStep();
             break;
         case 'ArrowRight':
             if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
@@ -109,8 +123,8 @@ document.addEventListener('keydown', (event) => {
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
-            playStep();
             changeVolume();
+            playStep();
             break;
     }
 

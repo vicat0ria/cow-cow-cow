@@ -249,11 +249,13 @@ function changeFontSize(size) {
         root.style.setProperty('--h2-font-size', '1.5em'); // Smaller size for h2
         root.style.setProperty('--button-font-size', '16px'); // Smaller size for buttons
         root.style.setProperty('--span-font-size', '16px');
+        root.style.setProperty('--width', '350px');
       } else if (size === 'medium') {
         root.style.setProperty('--h1-font-size', '3em'); // Medium size for h1
         root.style.setProperty('--h2-font-size', '2em'); // Medium size for h2
         root.style.setProperty('--button-font-size', '25px'); // Medium size for buttons
         root.style.setProperty('--span-font-size', '20px');
+        root.style.setProperty('--width', '350px');
       } else if (size === 'large') {
         root.style.setProperty('--h1-font-size', '3.5em'); // Larger size for h1
         root.style.setProperty('--h2-font-size', '2.5em'); // Larger size for h2

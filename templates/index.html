@@ -14,7 +14,7 @@
     <main id="container" role="main">
         <header>
             <h1 id="intro-heading">Marco Polo</h1>
-            <p id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</p>
+            <h2 id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</h2>
         </header>
         
         <nav aria-label="Main menu">
@@ -66,7 +66,7 @@
             <div id="user-id-instructions" class="sr-only">
                 Enter a unique user ID to save your progress.
             </div>
-            <p>Enter a unique user ID to save your progress.</p>
+            <h2>Enter a unique user ID to save your progress.</h2>
             <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID" onkeydown="checkKey()"></label>
         </div>
     </section>
@@ -94,7 +94,7 @@
     <section id="settings" aria-labelledby="settings-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="settings-heading">SETTINGS</h1>
-        <p>Change color contrast, font size, key binds, and voice over settings.</p>
+        <h2>Change color contrast, font size, key binds, and voice over settings.</h2>
         <div class="menu">
             <button class="menu-button" onclick="loadColorContrastSettings(); navigateTo('color-contrast-settings');">Color Contrast</button>
             <button class="menu-button" onclick="loadFontSizeSettings(); navigateTo('font-size-settings');">Font Size</button>

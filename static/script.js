@@ -19,14 +19,14 @@ function checkKey() {
 
 function loadGame() {
     // levelDecision(1);
-    navigateTo('canvas-container');
+    navigateTo('game-container');
     document.getElementById('container').style.display = 'none';
-    document.getElementById('canvas-container').style.display = 'flex';
+    document.getElementById('game-container').style.display = 'flex';
     document.getElementById('gameCanvas').style.display = 'flex';
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
     announcePageChange('Game');
-    updateTitleAndHeading('Game screen', 'canvas-container');
+    updateTitleAndHeading('Game screen', 'game-level-heading');
     draw(); 
     // playMusic1();
     startMusic();
@@ -58,8 +58,8 @@ function loadKeyBindSettings(){
 function loadUserId() {
     document.getElementById('container').style.display = 'none';
     document.getElementById('create-user-id').style.display = 'flex';
-    announcePageChange('User ID  page');
-    updateTitleAndHeading('Input User ID', 'key-bind-heading');
+    announcePageChange('User ID page');
+    updateTitleAndHeading('Input User ID', 'create-user-id-heading');
 }
 
 function getCoords() {
@@ -110,52 +110,44 @@ function resetGame() {
 }
 
 document.addEventListener('keydown', (event) => {
-    // const speed = 150;
-
+    const speed = 150;
     // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -1*userSize)){
-                userLocation.y -= userSize;
-            }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -150)){
+                userLocation.y -= speed;
+                hit = false;
+            } else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowDown':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, userSize)){
-                userLocation.y += userSize;
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
+                userLocation.y += speed;
+                hit = false;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowLeft':
-            if (!checkWallCollision(userLocation.x, userLocation.y, -1*userSize, 0)){
-                userLocation.x -= userSize;
+            if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
+                userLocation.x -= speed;
+                hit = false;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowRight':
-            if (!checkWallCollision(userLocation.x, userLocation.y, userSize, 0)){
-                userLocation.x += userSize;
+            if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
+                userLocation.x += speed;
+                hit = false;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
     }
-
-    // customized alert for boundaries
-    if (userLocation.x < 0) {
-        console.log('You are hitting the left wall');
-        userLocation.x = userLocation.x + userSize;
+    customAlertForBoundaries();
+    if(sfx.step.playing()){
+        sfx.step.stop();
     }
-    if (userLocation.x > 500) {
-        console.log('You are hitting the right wall');
-        userLocation.x = userLocation.x - userSize;
-    }
-    if (userLocation.y < 0) {
-        console.log('You are hitting the top wall');
-        userLocation.y = userLocation.y + userSize;
-    }
-    if (userLocation.y > 500) {
-        console.log('You are hitting the bottom wall');
-        userLocation.y = userLocation.y - userSize;
+    changeVolume();
+    if(!hit){
+        playStep();
     }
 
     // update the location: for testing purposes
@@ -216,7 +208,7 @@ function changeVolume(){
 
 var music = {
     level0: new Howl({
-        src: ['/audio/level1.mp3'],
+        src: ['static/audio/level1.mp3'],
         loop: true,
         volume: 0,
         preload: true,
@@ -225,15 +217,15 @@ var music = {
 
 var sfx = {
     step: new Howl({
-        src: ['/audio/step.mp3'],
+        src: ['static/audio/step.mp3'],
         volume: 0,
         preload: true,
     }),
     success: new Howl({
-        src: ['/audio/success.mp3'],
+        src: ['static/audio/success.mp3'],
     }),
     coin: new Howl({
-        src: ['/audio/coin-collected.mp3'],
+        src: ['static/audio/coin-collected.mp3'],
     }),
 }
 
@@ -444,6 +436,7 @@ function changeColorScheme(scheme) {
 // }
 function goBack() {
     if (navigationStack.length > 1) {
+        music.level0.stop();
         // Remove the current page from the stack
         const currentPageId = navigationStack.pop();
         document.getElementById(currentPageId).style.display = 'none';
@@ -540,3 +533,18 @@ function updateTitleAndHeading(newTitle, headingId) {
     }
 }
 
+
+function pauseGame() {
+    console.log("Game paused");
+    // Implement pause functionality
+}
+
+function saveGame() {
+    console.log("Game saved");
+    // Implement save functionality
+}
+
+function resetGame() {
+    console.log("Game reset");
+    // Implement reset functionality
+}

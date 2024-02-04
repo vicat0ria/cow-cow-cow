@@ -37,7 +37,7 @@ body{
 }
 
 #container, #settings, #color-contrast-settings, #key-bind-settings, #level-select,
-#about-game {
+#about-game, #level-select-leaderboard {
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -51,7 +51,7 @@ body{
     text-align: center;
 }
 
-#game-container, #level-select{
+#game-container, #level-select, #level-select-leaderboard{
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -274,7 +274,7 @@ input[type="text"]:hover {
 
 #settings, #font-size-settings, #color-contrast-settings,
 #key-bind-settings, #game-container, #create-user-id, #level-select,
-#about-game{
+#about-game, #level-select-leaderboard{
     display:none;
 }
 

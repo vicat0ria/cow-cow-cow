@@ -698,5 +698,5 @@ function showLeaderBoard()  {
     document.getElementById('container').style.display = 'none';
     document.getElementById('level-select-leaderboard').style.display = 'flex';
     announcePageChange('Level select for Leaderboard');
-    updateTitleAndHeading('Select a Level', 'level-select-leaderboard');
+    updateTitleAndHeading('Select a Level', 'level-select-leaderboard-header');
 }

@@ -36,7 +36,8 @@ body{
     align-items: center; /* Center-aligns items vertically */
 }
 
-#container, #settings, #color-contrast-settings, #key-bind-settings, #level-select {
+#container, #settings, #color-contrast-settings, #key-bind-settings, #level-select,
+#about-game {
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -272,7 +273,8 @@ input[type="text"]:hover {
 
 
 #settings, #font-size-settings, #color-contrast-settings,
-#key-bind-settings, #game-container, #create-user-id, #level-select{
+#key-bind-settings, #game-container, #create-user-id, #level-select,
+#about-game{
     display:none;
 }
 

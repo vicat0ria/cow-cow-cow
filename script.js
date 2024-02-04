@@ -1,7 +1,7 @@
 function loadSettings() {
     document.getElementById('container').style.display = 'none';
     document.getElementById('settings').style.display = 'flex';
-    announcePageChange('Settings page');
+    announcePageChange('Game Settings page');
     updateTitleAndHeading('Game Settings', 'settings-heading');
 }
 function loadFontSizeSettings(){
@@ -71,7 +71,7 @@ function changeColorScheme(scheme) {
     
     let navigationStack = ['container']; // Initial page
 
-    function navigateTo(pageId) {
+    function navigateTo(pageId, isBackNavigation = false) {
         // Hide the current page
         if (navigationStack.length > 0) {
             const currentTopId = navigationStack[navigationStack.length - 1];
@@ -80,12 +80,15 @@ function changeColorScheme(scheme) {
     
         // Show the new page
         document.getElementById(pageId).style.display = 'flex';
-        // Push the new page onto the stack, if not already there as the last entry
-        if (navigationStack[navigationStack.length - 1] !== pageId) {
-            navigationStack.push(pageId);
+    
+        if (!isBackNavigation) { // Only push to stack if not navigating back
+            // Push the new page onto the stack, if not already there as the last entry
+            if (navigationStack[navigationStack.length - 1] !== pageId) {
+                navigationStack.push(pageId);
+            }
         }
     
-        // Set focus to the new section for accessibility
+        // Focus management
         const targetSection = document.getElementById(pageId);
         if (targetSection) {
             targetSection.setAttribute('tabindex', '-1');
@@ -93,9 +96,10 @@ function changeColorScheme(scheme) {
             targetSection.removeAttribute('tabindex');
         }
     
-        // Announce the page change to screen readers
+        // Announce the page change to screen readers correctly
         announcePageChange(pageId, isBackNavigation);
     }
+    
       
 
     
@@ -126,16 +130,17 @@ function goBack() {
             targetSection.setAttribute('tabindex', '-1');
             targetSection.focus();
             targetSection.removeAttribute('tabindex');
-            // Announce the page change to screen readers
-            announcePageChange(`${previousPageId.replace(/-/g, ' ')}`);
         }
-        const isBackNavigation = true;
-        navigateTo(previousPageId, isBackNavigation);
+
+        // The true flag indicates back navigation
+        navigateTo(previousPageId, true);
     } else {
-        // Optional: logic for when there's no more history, e.g., show the main page
+        // Handle no history case
         console.log("No more navigation history.");
     }
 }
+
+
 
 
     

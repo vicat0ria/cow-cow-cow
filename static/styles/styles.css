@@ -48,11 +48,10 @@ h2{
     /* width: 800; 
     height: 800; */
     background-color: black; 
+    margin-top: 200px;
     border: solid 10px red; 
     display: none;
 }
-#x-coordinate, #y-coordinate {
-    /* display: none;  */
-    margin-top: 5px;
-
+#coordinates{
+    display: none;
 }

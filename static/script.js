@@ -69,6 +69,7 @@ function loadGame() {
     draw(); 
     startMusic();
     startStopwatch();
+    
 }
 function loadSettings() {
     document.getElementById('container').style.display = 'none';
@@ -154,7 +155,6 @@ function draw() {
     
     getCoords();
     requestAnimationFrame(draw);
-    console.log(seconds)
 }
 
 function resetGame() {
@@ -162,6 +162,9 @@ function resetGame() {
     document.getElementById('x-coordinate').innerHTML = 0; 
     document.getElementById('y-coordinate').innerHTML = 0;
     music.level0.stop();
+    resetStopwatch();
+    startStopwatch();
+
 }
 
 function startMusic(){

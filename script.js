@@ -111,6 +111,18 @@ function levelDecision(level) {
             userSize = 150;
             addWalls(2);
             break;
+        case 3:
+            targetLocation = { x: 450, y: 0};
+            userSize = 150;
+            break;
+        case 4: 
+            targetLocation = { x: 150, y: 450};
+            userSize = 150;
+            break;
+        case 5: 
+            targetLocation = { x: 480, y: 360};
+            userSize = 120; 
+            break; 
     }
 }
 
@@ -118,10 +130,17 @@ function addWalls(level) {
     switch(level) {
         case 2:
             walls = [];
-            ctx.fillStyle = 'pink';
+            ctx.fillStyle = 'black';
             ctx.fillRect(0, 150, userSize, userSize*3);
             ctx.fillRect(300, 0, userSize, userSize*2);
             walls.push([0,1],[0,2],[0,3],[2,0],[2,1]);
+            break;
+        case 3:
+            walls = [];
+            ctx.fillStyle = 'black';
+            ctx.fillRect();
+            ctx.fillRect();
+            walls.push();
             break;
     }
 }

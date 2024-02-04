@@ -108,7 +108,7 @@ h2{
     display: block;
     outline: none;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, outline 0.3s;
-    border-radius: 10px; 
+    border-radius: 30px; 
 }
 
 .menu-button:hover,

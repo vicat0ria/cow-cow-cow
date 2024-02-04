@@ -1,3 +1,9 @@
+<!--Sound-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" 
+    integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,40 +11,114 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Maze Game</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static',filename='styles/styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
 </head>
 <body>
     <div aria-live="assertive" id="accessibilityAnnouncer" class="sr-only"></div>
 
     <main id="container" role="main">
         <header>
-            <h1 id="intro-heading">Marco Polo</h1>
-            <p id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</p>
+            <h1 id="intro-heading">Echo Location</h1>
+            <h2 id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</h2>
         </header>
         
         <nav aria-label="Main menu">
             <h2 id="main-heading">MAIN MENU</h2>
             <div class="menu">
-                <button class="menu-button" onclick="loadGame(); navigateTo('canvas-container');">Play</button>
+                <button class="menu-button" onclick="loadUserId(); navigateTo('create-user-id');">Play</button>
                 <button class="menu-button">Leaderboard</button>
                 <button class="menu-button" onclick="loadSettings(); navigateTo('settings');">Settings</button>
             </div>
         </nav>
     </main>
     
-    <section id="canvas-container">
+    <section id="game-container" aria-labelledby="game-level-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
-        <canvas id="gameCanvas" width="600" height="600"></canvas>
-        <div id="coordinates">
-            <p>X:<span id="x-coordinate">50</span></p>
-            <p>Y:<span id="y-coordinate">50</span></p>
+        <div class="game-controls left-controls">
+            <button class="game-button" onclick="pauseGame()">Pause</button>
+            <button class="game-button save-button" onclick="saveGame()">Save Game</button>
+            <button class="game-button" onclick="resetGame()">Reset</button>
+        </div>
+    
+        <div id="canvas-container" tabindex="-1" role="region" aria-label="Game Canvas">
+            <h1 class="level-indicator" id="game-level-heading">Level: <span id="current-level">0</span></h1>
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+            <div id="coordinates">
+                <p>X:<span id="x-coordinate">50</span></p>
+                <p>Y:<span id="y-coordinate">50</span></p>
+            </div>
+        </div>
+
+        <div class="game-info right-controls">
+            <div tabindex="0" class="game-button" id="stopwatch">Timer: 00:00:00</div>
+            <div tabindex="0" class="game-button" id="high-score">High Score: 00:00</div>
+            <div class="arrow-keys">
+                <button class="game-button up-arrow">&uarr;</button> <!-- Top arrow -->
+                <div class="horizontal-arrows">
+                    <button class="game-button left-arrow">&larr;</button> <!-- Left arrow -->
+                    <button class="game-button down-arrow">&darr;</button> <!-- Bottom arrow -->
+                    <button class="game-button right-arrow">&rarr;</button> <!-- Right arrow -->
+                </div>
+            </div>
         </div>
     </section>
     
+    <section id="create-user-id" aria-labelledby="create-user-id-heading" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
+        <h1 id="create-user-id-heading">Create a User ID</h1>
+        <div class="menu" aria-describedby="user-id-instructions">
+            <div id="user-id-instructions" class="sr-only">
+                Enter a unique user ID to save your progress.
+            </div>
+            <h2>Enter a unique user ID to save your progress.</h2>
+            <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID or Press Enter" aria-label="Input User ID or Press Enter" onkeydown="checkKey()"></label>
+        </div>
+    </section>
+
+    <section id="level-select" aria-labelledby="level-select-header" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
+        <div class="level-select-header" id="level-select-header"> 
+            <h1>LEVEL SELECT</h1>
+            <h2>Select what level you would like to play.</h2>
+        </div>
+  
+        <div class="levels-grid-container"> 
+            <button class="levels-button" onclick="loadGameObjective(); navigateTo('about-game');" aria-label="Level One">1</button>
+            <button class="levels-button" onclick="loadGameObjective();" disabled>2</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>3</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>4</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>5</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>6</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>7</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>8</button>
+        </div>
+    </section>
+
+    <section id="about-game" aria-labelledby="about-game-header" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
+        <div id="about-game-header"> 
+            <h1>GAME OBJECTIVE</h1>
+            <div id="user-id-instructions" class="sr-only">
+                The objective of the game is to find where the music is coming from. Navigate towards the music using the arrow keys. If the music is getting louder, then you’re getting closer. A noise indicates a legal move. No noise means that you’ve hit a wall and cannot move in that direction.</div>
+            <h2>The objective of the game is to find where the music is coming from.
+
+                Navigate towards the music using the arrow keys.
+                
+                If the music is getting louder, then you’re getting closer.
+                
+                A noise indicates a legal move. No noise means that you’ve hit a wall and cannot move in that direction.</h2>
+        </div>
+        <div class="menu"> 
+            <button class="menu-button" onclick="loadGame()">Begin Level 0</button>
+        </div>
+    </section>
+
     <section id="settings" aria-labelledby="settings-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="settings-heading">SETTINGS</h1>
-        <p>Change color contrast, font size, key binds, and voice over settings.</p>
+        <h2>Change color contrast, font size, key binds, and voice over settings.</h2>
         <div class="menu">
             <button class="menu-button" onclick="loadColorContrastSettings(); navigateTo('color-contrast-settings');">Color Contrast</button>
             <button class="menu-button" onclick="loadFontSizeSettings(); navigateTo('font-size-settings');">Font Size</button>
@@ -86,6 +166,12 @@
         </div>
     </section>
 
+    <!-- <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID" oninput="checkKey()"></label> -->
+
+    <div id="coordinates">
+        <p>X:<span id="x-coordinate">50</span></p>
+        <p>Y:<span id="y-coordinate">50</span></p>
+    </div>
     <script src='/static/script.js'></script>
 </body>
 </html>

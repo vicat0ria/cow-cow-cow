@@ -6,7 +6,6 @@
     <title>Maze Game</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
-    <script src='main.js'></script>
 </head>
 <body>
     <div aria-live="assertive" id="accessibilityAnnouncer" class="sr-only"></div>
@@ -20,7 +19,7 @@
         <nav aria-label="Main menu">
             <h2 id="main-heading">MAIN MENU</h2>
             <div class="menu">
-                <button class="menu-button" onclick="loadGame()">Play</button>
+                <button class="menu-button" onclick="loadUserId()">Play</button>
                 <button class="menu-button">Leaderboard</button>
                 <button class="menu-button" onclick="loadSettings(); navigateTo('settings');">Settings</button>
             </div>
@@ -29,11 +28,12 @@
 
     <section id="create-user-id" aria-labelledby="create-user-id" hidden>
         <h1 id="create-user-id">Create a User ID</h1>
-        <span>Enter a unique user ID to save your progress.</span>
+        <p>Enter a unique user ID to save your progress.</p>
         <div class="menu">
             <button class="menu-button" onclick="">Light Theme</button>
         </div>
-        <button onclick="goBack()">Go Back</button>
     </section>
+
+    <script src='script.js'></script>
 </body>
 </html>

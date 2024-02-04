@@ -2,7 +2,7 @@
     /* Default sizes */
     --h1-font-size: 7em; /* Example default size */
     --h2-font-size: 3.5em; /* Example default size */
-    --button-font-size: 25px; /* Example default size */
+    --button-font-size: 1.5625em; /* Example default size */
     --p-font-size: 20px;
     --text-color: #000000; /* Default text color */
     --background-color: #FFFFFF; /* Default background color */
@@ -175,13 +175,25 @@ input[type="text"]:hover {
     display:none;
 }
 
-.levels-container { 
+.levels-grid-container { 
     display: grid; 
-    
+    grid-template-columns: repeat(4, 1fr);
+    gap: 70px;
+    padding: 0 10% 0 10%;
 }
 
 .levels-button { 
     background-color: var(--background-color);
     color: var(--text-color);
+    padding: 10px 20px; 
+    border-radius: 30px;
+    font-size: var(--button-font-size);
+    border: 4px solid;
+}
 
+.levels-header { 
+    display: flex;  
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
 }

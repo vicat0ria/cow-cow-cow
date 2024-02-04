@@ -1,9 +1,3 @@
-<!--Sound-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" 
-    integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer">
-</script>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +5,9 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Maze Game</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static',filename='styles/styles.css') }}">
 </head>
 <body>
-    <embed src="C:\Users\victo\Desktop\projects\cow-cow-cow\audio\music1.mp3" autostart></embed>
     <div id="container">
         <h1 id="intro-heading">Marco Polo</h1>
         <span id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</span>
@@ -25,11 +18,11 @@
             <button class="menu-button">Settings</button>
         </div>
     </div>
-    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
     <div id="coordinates">
         <p>X:<span id="x-coordinate">50</span></p>
         <p>Y:<span id="y-coordinate">50</span></p>
     </div>
-    <script src='script.js'></script>
+    <script src='/static/script.js'></script>
 </body>
 </html>

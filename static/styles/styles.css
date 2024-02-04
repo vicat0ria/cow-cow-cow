@@ -13,6 +13,11 @@
 
     --width: 350px;
   }
+
+* { 
+    box-sizing: border-box; 
+}
+
 body{
     background-color: var(--background-color);
     color: var(--text-color);   
@@ -29,6 +34,12 @@ body{
 #intro { 
     font-size: 2em;
     font-weight: medium;
+    flex: 1; 
+    align-self: stretch; 
+    padding: 0 100px 0 100px;  
+    margin: 0;
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
 }
 
 #container, #settings, #color-contrast-settings, #key-bind-settings {

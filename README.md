@@ -1,14 +1,17 @@
-# Accessbility Maze Game
+# Accessbility Maze Game "Marco Polo"
 
 ## How to Play
 
-- Listen to the audio cues to understand your surroundings within the maze.
-- Solve the maze by finding the object, guided by auditory hints and feedback.
+- Listen to the audio cues to navigate your surroundings within the maze.
+- Solve the maze by finding the object, guided by auditory hints and feedback. 
+- Use the arrow keys to control your character and navigate menu selections.
 
 ## Prequisites 
 
 - A modern web browser with JavaScript enabled
 - Internet connection
+- Audio output device 
+- Keyboard with arrow keys
 
 ## Installation
 

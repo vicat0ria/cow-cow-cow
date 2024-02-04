@@ -71,9 +71,8 @@ body{
     height: 50vh;
     text-align: center;
 }
-#level-indicator {
-    margin-bottom: 10px; /* Space between level indicator and canvas */
-    font-size: 20px; 
+.level-indicator {
+    margin: 0!important;
     text-align: center; 
 }
 h1{
@@ -124,6 +123,9 @@ h2{
 }
 .game-button, .levels-button{
     width: auto!important;
+}
+.levels-button{
+    font-size: var(--h1-font-size)!important;
 }
 #stopwatch, #high-score{
     width:150px!important;

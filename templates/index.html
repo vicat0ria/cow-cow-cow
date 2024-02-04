@@ -36,7 +36,7 @@
         </div>
     
         <div id="canvas-container">
-            <div id="level-indicator game-level-heading">Level: <span id="current-level">0</span></div>
+            <h1 class="level-indicator" id="game-level-heading">Level: <span id="current-level">0</span></h1>
             <canvas id="gameCanvas" width="600" height="600"></canvas>
             <div id="coordinates">
                 <p>X:<span id="x-coordinate">50</span></p>
@@ -71,24 +71,6 @@
         </div>
     </section>
     
-    <section id="level-select" aria-labelledby="level-select-header" hidden>
-        <button class="back" onclick="goBack()">&#8249; Back</button>
-        <div class="level-select-header" id="level-select-header"> 
-            <h1>LEVEL SELECT</h1>
-            <h2>Select what level you would like to play.</h2>
-        </div>
-  
-        <div class="levels-grid-container"> 
-            <button class="levels-button" onclick="loadGame()">1</button>
-            <button class="levels-button" onclick="loadGame()" disabled>2</button>
-            <button class="levels-button" onclick="loadGame()" disabled>3</button>
-            <button class="levels-button" onclick="loadGame()" disabled>4</button>
-            <button class="levels-button" onclick="loadGame()" disabled>5</button>
-            <button class="levels-button" onclick="loadGame()" disabled>6</button>
-            <button class="levels-button" onclick="loadGame()" disabled>7</button>
-            <button class="levels-button" onclick="loadGame()" disabled>8</button>
-        </div>
-    </section>
 
     <section id="level-select" aria-labelledby="level-select-header" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>

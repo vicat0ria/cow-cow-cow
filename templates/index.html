@@ -8,26 +8,24 @@
     <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static',filename='styles/styles.css') }}">
 </head>
 <body>
-    <div id="container">
-        <h1 id="intro-heading">Marco Polo</h1>
-        <span id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</span>
-        <h2 id="main-heading">MAIN MENU</h2>
-        <div class="menu">
-            <button class="menu-button" onclick="loadGame()">Play</button>
-            <button class="menu-button">Leaderboard</button>
-            <button class="menu-button">Settings</button>
-        </div>
-    </div>
-    <section id="settings" aria-labelledby="settings-heading" hidden>
-        <h1 id="settings-heading">SETTINGS</h1>
-        <p>Change color contrast, font size, key binds, and voice over settings.</p>
-        <div class="menu">
-            <button class="menu-button" onclick="loadColorContrastSettings(); navigateTo('color-contrast-settings');">Color Contrast</button>
-            <button class="menu-button" onclick="loadFontSizeSettings(); navigateTo('font-size-settings');">Font Size</button>
-            <button class="menu-button" onclick="loadKeyBindSettings(); navigateTo('key-bind-settings');">Change Key-Binds</button>
-            <button class="menu-button" aria-live="polite" onclick="toggleVoiceOver()">Voice-Over: <span id="voice-over-status">On</span></button>
-        </div>
-    </section>
+    <div aria-live="assertive" id="accessibilityAnnouncer" class="sr-only"></div>
+
+    <main id="container" role="main">
+        <header>
+            <h1 id="intro-heading">Marco Polo</h1>
+            <p id="intro">A maze-type game designed specifically for visually impaired individuals, providing an immersive experience through sound navigation.</p>
+        </header>
+        
+        <nav aria-label="Main menu">
+            <h2 id="main-heading">MAIN MENU</h2>
+            <div class="menu">
+                <button class="menu-button" onclick="loadUserId()">Play</button>
+                <button class="menu-button">Leaderboard</button>
+                <button class="menu-button" onclick="loadSettings(); navigateTo('settings');">Settings</button>
+            </div>
+        </nav>
+    </main>
+
     <section id="create-user-id" aria-labelledby="create-user-id" hidden>
         <h1 id="create-user-id-heading">Create a User ID</h1>
         <div class="menu" aria-describedby="user-id-instructions">
@@ -39,6 +37,29 @@
         </div>
 
     </section>
+
+    <section id="settings" aria-labelledby="settings-heading" hidden>
+        <h1 id="settings-heading">SETTINGS</h1>
+        <p>Change color contrast, font size, key binds, and voice over settings.</p>
+        <div class="menu">
+            <button class="menu-button" onclick="loadColorContrastSettings(); navigateTo('color-contrast-settings');">Color Contrast</button>
+            <button class="menu-button" onclick="loadFontSizeSettings(); navigateTo('font-size-settings');">Font Size</button>
+            <button class="menu-button" onclick="loadKeyBindSettings(); navigateTo('key-bind-settings');">Change Key-Binds</button>
+            <button class="menu-button" aria-live="polite" onclick="toggleVoiceOver()">Voice-Over: <span id="voice-over-status">On</span></button>
+        </div>
+    </section>
+
+    <section id="create-user-id" aria-labelledby="create-user-id" hidden>
+        <h1 id="create-user-id-heading">Create a User ID</h1>
+        <div class="menu" aria-describedby="user-id-instructions">
+            <div id="user-id-instructions" class="sr-only">
+                Enter a unique user ID to save your progress.
+            </div>
+            <p>Enter a unique user ID to save your progress.</p>
+            <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID"></label>
+        </div>
+    </section>
+
     <section id="leaderboard-level-select" aria-labelledby="leaderboard-select-heading" hidden>
         <h1 id="leaderboard-select-heading">LEADERBOARD LEVEL SELECT</h1>
         <p>Select what level you would like to know the leaderboard for.</p>
@@ -60,6 +81,7 @@
             <button class="menu-button" onclick="">16</button>
         </div>
     </section>
+
     <section id="leaderboard-results" aria-labelledby="leaderboard-results" hidden>
         <h1 id="leaderboard-results">LEADERBOARD</h1>
         <p>Level 1</p>
@@ -71,12 +93,16 @@
             <button class="menu-button" onclick="">5th User user_id Time: 1:01</button>
         </div>
     </section>
+
     <canvas id="gameCanvas" width="600" height="600"></canvas>
+
     <button onclick="goBack()" hidden>Go Back</button>
+
     <div id="coordinates">
         <p>X:<span id="x-coordinate">50</span></p>
         <p>Y:<span id="y-coordinate">50</span></p>
     </div>
+    
     <script src='static/script.js'></script>
 </body>
 </html>

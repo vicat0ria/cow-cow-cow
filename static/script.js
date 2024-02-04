@@ -68,6 +68,12 @@ function loadLevelSelection(){
     announcePageChange('Level select page');
     updateTitleAndHeading('Select a Level', 'level-select-header');
 }
+function loadGameObjective(){
+    document.getElementById('level-select').style.display = 'none';
+    document.getElementById('about-game').style.display = 'flex';
+    announcePageChange('Game Objective page');
+    updateTitleAndHeading('Game Objective', 'about-game-header');   
+}
 
 function getCoords() {
     // Using AJAX to send the value to Flask

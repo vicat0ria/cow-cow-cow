@@ -43,7 +43,7 @@
                 <p>Y:<span id="y-coordinate">50</span></p>
             </div>
         </div>
-    
+
         <div class="game-info right-controls">
             <div tabindex="0" class="game-button" id="stopwatch">Timer: 00:00:00</div>
             <div tabindex="0" class="game-button" id="high-score">High Score: 00:00</div>
@@ -58,7 +58,6 @@
         </div>
     </section>
     
-
     <section id="create-user-id" aria-labelledby="create-user-id-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="create-user-id-heading">Create a User ID</h1>
@@ -70,7 +69,6 @@
             <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID" onkeydown="checkKey()"></label>
         </div>
     </section>
-    
 
     <section id="level-select" aria-labelledby="level-select-header" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
@@ -80,14 +78,40 @@
         </div>
   
         <div class="levels-grid-container"> 
-            <button class="levels-button" onclick="loadGame()">1</button>
-            <button class="levels-button" onclick="loadGame()" disabled>2</button>
-            <button class="levels-button" onclick="loadGame()" disabled>3</button>
-            <button class="levels-button" onclick="loadGame()" disabled>4</button>
-            <button class="levels-button" onclick="loadGame()" disabled>5</button>
-            <button class="levels-button" onclick="loadGame()" disabled>6</button>
-            <button class="levels-button" onclick="loadGame()" disabled>7</button>
-            <button class="levels-button" onclick="loadGame()" disabled>8</button>
+            <button class="levels-button" onclick="loadGameObjective(); navigateTo('about-game');">1</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>2</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>3</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>4</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>5</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>6</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>7</button>
+            <button class="levels-button" onclick="loadGameObjective()" disabled>8</button>
+        </div>
+    </section>
+
+    <section id="about-game" aria-labelledby="about-game-header" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
+        <div id="about-game-header"> 
+            <h1>GAME OBJECTIVE</h1>
+            <div id="user-id-instructions" class="sr-only">
+                The objective of the game is to find where the music is coming from.
+
+                Navigate towards the music using the arrow keys.
+                
+                If the music is getting louder, then you’re getting closer.
+                
+                A noise indicates a legal move. No noise means that you’ve hit a wall and cannot move in that direction.
+            </div>
+            <h2>The objective of the game is to find where the music is coming from.
+
+                Navigate towards the music using the arrow keys.
+                
+                If the music is getting louder, then you’re getting closer.
+                
+                A noise indicates a legal move. No noise means that you’ve hit a wall and cannot move in that direction.</h2>
+        </div>
+        <div class="menu"> 
+            <button class="menu-button" onclick="loadGame()">Begin Level 0</button>
         </div>
     </section>
 

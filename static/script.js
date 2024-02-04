@@ -24,7 +24,8 @@ function getCoords() {
         userX: userLocation.x,
         userY: userLocation.y,
         targetX: targetLocation.x,
-        targetY: targetLocation.y
+        targetY: targetLocation.y,
+    
     }
     xhr.send(JSON.stringify(coords));
 }

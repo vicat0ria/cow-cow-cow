@@ -76,6 +76,17 @@ MacOS: `python3 app.py`
 - *Libraries and APIs:* Howler.js, Pandas, NumPy, Requests
 - *OS level a11y APIs:* text-to-speech
 
+## Algorithms and Functions used
+- loadGame(): Called when the player begins the game. It sets up the screen depeding on what option is selected. This is done by hiding the HTML elements and displaying the required ones. 
+- draw(): Sets up the canvas, including target, user, background. Continuously calls the levelDecision() to continue the game in a loop, while making the required changes.
+- levelDecision(): sets customized location for target and userSize depending on the chosen level. This calls addWalls() if the level has any obstacles. 
+- addWalls(): Depending on which level the user is on, the walls and others obstacles are added to the game. This is achieved using fillRect from canvas.getContext() -> an HTML element. Also, pushes the decided walls into an array for use in later functions.
+- checkWallCollisions(): uses the walls from the array to check if the user is in any of the coordinates in the array. If they are not, they can continue the game and if they are, it gives them an indication about it. 
+- customAlertForBoundaries(): Sends a custom message to the user saying which bounndary wall they have hit to play accordingly. 
+- EventListener for 'keydown' to see which arrow key is clicked. There is a check for wall collision and the user is prompted with instructions using the audio cues. 
+- Different music auidos are used to indicate 'success', 'go ahead' and also the background music to find the target. 
+
+
 ## Accessibility features/ADA compliance
 
 - Performed user-testing using the keyboard and OS text-to-speech tool

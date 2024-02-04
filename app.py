@@ -32,18 +32,5 @@ def receive_value():
         return jsonify(result), 500
     
 
-# @app.route('/get_coords', methods=['GET'])
-# def get_coords():
-#     try:
-#         global stored_data
-#         result = {'status': 'success', 'data': stored_data}
-#         print(stored_data)
-#         return jsonify(result)
-
-#     except Exception as e:
-#         result = {'status': 'error', 'message': str(e)}
-#         return jsonify(result), 500
-
-
 if __name__ == '__main__': 
     app.run(debug=True) 

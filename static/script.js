@@ -47,15 +47,25 @@ function playSuccess(){
     sfx.success.play();
 }  
 
+function checkKey() {
+    document.addEventListener('keydown', function(event) { // Explicitly pass the event object
+        if (event.key === "Enter") {
+            loadLevelSelection();
+            navigateTo('level-select');
+        }
+    }, { once: true }); // Use the `{ once: true }` option so the listener is removed after firing once
+}
+
 function loadGame() {
     // levelDecision(1);
+    navigateTo('game-container');
     document.getElementById('container').style.display = 'none';
-    document.getElementById('canvas-container').style.display = 'flex';
+    document.getElementById('game-container').style.display = 'flex';
     document.getElementById('gameCanvas').style.display = 'flex';
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
     announcePageChange('Game');
-    updateTitleAndHeading('Game screen', 'canvas-container');
+    updateTitleAndHeading('Game screen', 'game-level-heading');
     draw(); 
     startMusic();
     startStopwatch();
@@ -85,6 +95,18 @@ function loadKeyBindSettings(){
     announcePageChange('Key Bind settings page');
     updateTitleAndHeading('Key Bind Settings', 'key-bind-heading');
 }
+function loadUserId() {
+    document.getElementById('container').style.display = 'none';
+    document.getElementById('create-user-id').style.display = 'flex';
+    announcePageChange('User ID page');
+    updateTitleAndHeading('Input User ID', 'create-user-id-heading');
+}
+function loadLevelSelection(){
+    document.getElementById('create-user-id').style.display = 'none';
+    document.getElementById('level-select').style.display = 'flex';
+    announcePageChange('Level select page');
+    updateTitleAndHeading('Select a Level', 'level-select-header');
+}
 
 function getCoords() {
     // Using AJAX to send the value to Flask
@@ -111,6 +133,11 @@ function draw() {
     ctx.fillStyle = 'white';
     ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
 
+    if (hasWon) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
+    }
+    document.getElementById('current-level').innerHTML = level;
     levelDecision(level);
 
     // Check if the user has reached the hidden object
@@ -191,6 +218,7 @@ document.addEventListener('keydown', (event) => {
         case 'ArrowLeft':
             if (!checkWallCollision(userLocation.x, userLocation.y, -1*userSize, 0)){
                 userLocation.x -= userSize;
+
                 hit = false;
             }
             else {hit = true}; // will be changed to voice commands
@@ -198,6 +226,7 @@ document.addEventListener('keydown', (event) => {
         case 'ArrowRight':
             if (!checkWallCollision(userLocation.x, userLocation.y, userSize, 0)){
                 userLocation.x += userSize;
+
                 hit = false;
             }
             else {hit = true}; // will be changed to voice commands
@@ -209,14 +238,102 @@ document.addEventListener('keydown', (event) => {
     }
     changeVolume();
     if(!hit){
-        // playStep();
-        sfx.step.play()
+        playStep();
     }
 
     // update the location: for testing purposes
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
 });
+
+function customAlertForBoundaries(){
+    // customized alert for boundaries
+    if (userLocation.x < 0) {
+        console.log('You are hitting the left wall');
+        userLocation.x = userLocation.x + 150;
+        hit = true;
+    }
+    if (userLocation.x > 500) {
+        console.log('You are hitting the right wall');
+        userLocation.x = userLocation.x - 150;
+        hit = true;
+    }
+    if (userLocation.y < 0) {
+        console.log('You are hitting the top wall');
+        userLocation.y = userLocation.y + 150;
+        hit = true;
+    }
+    if (userLocation.y > 500) {
+        console.log('You are hitting the bottom wall');
+        userLocation.y = userLocation.y - 150;
+        hit = true;
+    }
+}
+
+function startMusic(){
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //0.16, 0.2, 0.25, 0.33, 0.5, 1
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    volumeLevel = 1 - volumeLevel + step;
+    console.log(volumeLevel);
+    sfx.step.volume(0.1);
+    //sfx.step.volume(volumeLevel);
+    music.level0.volume(volumeLevel);
+    playMusic1();
+}
+
+function changeVolume(){
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    volumeLevel = 1 - volumeLevel + step;
+    //sfx.step.volume(volumeLevel);
+    music.level0.volume(volumeLevel);
+    console.log(volumeLevel);
+}
+
+var music = {
+    level0: new Howl({
+        src: ['static/audio/level1.mp3'],
+        loop: true,
+        volume: 0,
+        preload: true,
+    }),
+}
+
+var sfx = {
+    step: new Howl({
+        src: ['static/audio/step.mp3'],
+        volume: 0,
+        preload: true,
+    }),
+    success: new Howl({
+        src: ['static/audio/success.mp3'],
+    }),
+    coin: new Howl({
+        src: ['static/audio/coin-collected.mp3'],
+    }),
+}
+
+
+function playMusic1(){
+    music.level0.play();
+}
+
+function playStep(){
+    sfx.step.play();
+}
+
+function playSuccess(){
+    sfx.success.volume(0.5);
+    sfx.success.play();
+}   
+
 
 function levelDecision(level) {
     switch(level) {
@@ -326,11 +443,13 @@ function changeFontSize(size) {
         root.style.setProperty('--h2-font-size', '1.5em'); // Smaller size for h2
         root.style.setProperty('--button-font-size', '16px'); // Smaller size for buttons
         root.style.setProperty('--span-font-size', '16px');
+        root.style.setProperty('--width', '350px');
       } else if (size === 'medium') {
         root.style.setProperty('--h1-font-size', '3em'); // Medium size for h1
         root.style.setProperty('--h2-font-size', '2em'); // Medium size for h2
         root.style.setProperty('--button-font-size', '25px'); // Medium size for buttons
         root.style.setProperty('--span-font-size', '20px');
+        root.style.setProperty('--width', '350px');
       } else if (size === 'large') {
         root.style.setProperty('--h1-font-size', '3.5em'); // Larger size for h1
         root.style.setProperty('--h2-font-size', '2.5em'); // Larger size for h2
@@ -397,6 +516,7 @@ function navigateTo(pageId, isBackNavigation = false) {
     
 function goBack() {
     if (navigationStack.length > 1) {
+        music.level0.stop();
         // Remove the current page from the stack
         const currentPageId = navigationStack.pop();
         document.getElementById(currentPageId).style.display = 'none';
@@ -424,17 +544,24 @@ function goBack() {
 // Variable to keep track of which input is currently active
 let currentKeyBindInput = null;
 
-document.querySelectorAll('input[type="text"]').forEach(input => {
-    input.addEventListener('focus', function() {
-        currentKeyBindInput = this; // Set the current input
-        document.addEventListener('keydown', handleKeyBind);
-    });
+// List of specific input IDs you want to target
+const inputIds = ['bind-up', 'bind-down', 'bind-left', 'bind-right'];
 
-    input.addEventListener('blur', function() {
-        document.removeEventListener('keydown', handleKeyBind);
-        currentKeyBindInput = null; // Clear the current input
-    });
+inputIds.forEach(inputId => {
+    const input = document.getElementById(inputId);
+    if (input) { // Check if the element exists
+        input.addEventListener('focus', function() {
+            currentKeyBindInput = this; // Set the current input
+            document.addEventListener('keydown', handleKeyBind);
+        });
+
+        input.addEventListener('blur', function() {
+            document.removeEventListener('keydown', handleKeyBind);
+            currentKeyBindInput = null; // Clear the current input
+        });
+    }
 });
+
 
 function handleKeyBind(e) {
     // Allow default behavior for the combination of Ctrl+R or Shift+Tab
@@ -518,24 +645,20 @@ function customAlertForBoundaries(){
 
 function updateStopwatch() {
     seconds++;
-
     if (seconds === 60) {
         seconds = 0;
         minutes++;
-
         if (minutes === 60) {
             minutes = 0;
             hours++;
         }
     }
-
     formattedTime = `${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`;
     document.getElementById('stopwatch').innerText = formattedTime;
 }
 
 function startStopwatch() {
     stopwatchInterval = setInterval(updateStopwatch, 1000);
-
 }
 
 function stopStopwatch() {
@@ -552,4 +675,13 @@ function resetStopwatch() {
 
 function padTime(time) {
     return time < 10 ? `0${time}` : time;
+}
+function pauseGame() {
+    console.log("Game paused");
+    // Implement pause functionality
+}
+
+function saveGame() {
+    console.log("Game saved");
+    // Implement save functionality
 }

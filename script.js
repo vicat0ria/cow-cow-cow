@@ -6,14 +6,14 @@ var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 
-function loadGame() {
-    // levelDecision(1);
+function loadGame(){
     document.getElementById('container').style.display = 'none';
     document.getElementById('gameCanvas').style.display = 'block';
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
+
     draw(); 
-    playMusic();
+    // playMusic1();
 }
 
 function draw() {
@@ -25,29 +25,35 @@ function draw() {
     ctx.fillStyle = 'white';
     ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
 
-    //playMusic();
-
-    //Start music
-    // document.querySelector(".menu-button").addEventListener("click", () => {
-    //     loadGame();
-    //     music.finish.play();
-    // })
-
-
     if (hasWon) {
         ctx.fillStyle = 'red';
         ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
     }
 
     levelDecision(1);
+    startMusic();
 
     // Check if the user has reached the hidden object
     if (userLocation.x == targetLocation.x &&
         userLocation.y == targetLocation.y) {
+        playSuccess();   
+        music.level0.play();
         alert('Congratulations! You found the hidden object.');
         resetGame();
     }
     requestAnimationFrame(draw);
+}
+
+function startMusic(){
+    var volumeLevel = 1 / (Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y));
+    console.log(volumeLevel);
+    music.level0.volume(volumeLevel);
+    playMusic1();
+}
+
+function changeVolume(){
+    var volumeLevel = 1 / (Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y));
+    music.level0.volume(volumeLevel);
 }
 
 function resetGame() {
@@ -63,19 +69,35 @@ document.addEventListener('keydown', (event) => {
     switch (event.key) {
         case 'ArrowUp':
             userLocation.y -= speed;
+            if(sfx.step.playing()){
+                sfx.step.stop();
+            }
             playStep();
+            changeVolume();
             break;
         case 'ArrowDown':
             userLocation.y += speed;
+            if(sfx.step.playing()){
+                sfx.step.stop();
+            }
             playStep();
+            changeVolume();
             break;
         case 'ArrowLeft':
             userLocation.x -= speed;
+            if(sfx.step.playing()){
+                sfx.step.stop();
+            }
             playStep();
+            changeVolume();
             break;
         case 'ArrowRight':
             userLocation.x += speed;
+            if(sfx.step.playing()){
+                sfx.step.stop();
+            }
             playStep();
+            changeVolume();
             break;
     }
 
@@ -116,34 +138,18 @@ var sfx = {
     })
 }
 
-// var music = {
-//     finish: new Howl({
-//         src: [
-//             '\music1.mp3',
-//             //'C:\Users\victo\Desktop\projects\cow-cow-cow\audio\music1.mp3',
-//         ],
-//         loop: true, 
-//         onload: function () {
-//             // This function will be called once the sound is loaded and can be played
-//             console.log('Sound loaded and ready to play!');
-//             // You can perform additional actions here
-//             music.finish.play();
-//         }        
-//     })
-// }
-
 var music = {
     level0: new Howl({
-        src: ['/audio/music1.mp3'],
+        src: ['/audio/level1.mp3'],
         loop: true,
-        volume: 0.075,
+        volume: 0,
     }),
     level1: new Howl({
-        src: ['/audio/music1.mp3'],
+        src: ['/audio/level1.mp3'],
         loop: true
     }),
     level2: new Howl({
-        src: ['/audio/music1.mp3'],
+        src: ['/audio/level1.mp3'],
         loop: true
     }),
 }
@@ -160,14 +166,21 @@ var sfx = {
     }),
 }
 
-playMusic1();
+// var volumeLevel = 1/(abs(userLocation.x - targetLocation.x)+ abs(userLocation.y - targetLocation.y));
+// console.log(volumeLevel);
 
 function playMusic1(){
     music.level0.play();
 }
+
 function playStep(){
     sfx.step.play();
 }
+
+function playSuccess(){
+    sfx.success.play();
+}   
+
 
 function levelDecision(level) {
     switch(level) {

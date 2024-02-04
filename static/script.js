@@ -268,7 +268,7 @@ function addWalls(level) {
             break;
         default:
             walls = [];
-            ctx.fillStyle = 'pink';
+            ctx.fillStyle = 'black';
             ctx.fillRect(0, 150, userSize, userSize*3);
             ctx.fillRect(300, 0, userSize, userSize*2);
             walls.push([0,1],[0,2],[0,3],[2,0],[2,1]);

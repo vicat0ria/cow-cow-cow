@@ -28,6 +28,8 @@ function loadGame() {
     announcePageChange('Game');
     updateTitleAndHeading('Game screen', 'canvas-container');
     draw(); 
+    // playMusic1();
+    startMusic();
 }
 function loadSettings() {
     document.getElementById('container').style.display = 'none';
@@ -83,19 +85,21 @@ function draw() {
     ctx.fillStyle = 'white';
     ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
 
-    levelDecision(level);
+    if (hasWon) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
+    }
+
+    levelDecision(1);
 
     // Check if the user has reached the hidden object
     if (userLocation.x == targetLocation.x &&
         userLocation.y == targetLocation.y) {
+        music.level0.stop();
+        playSuccess();   
         alert('Congratulations! You found the hidden object.');
-        resetGame()
-        level++;
+        resetGame();
     }
-    if (level > 5) {
-        level = 0;
-    }
-    getCoords();
     requestAnimationFrame(draw);
 }
 
@@ -158,6 +162,95 @@ document.addEventListener('keydown', (event) => {
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
 });
+
+function customAlertForBoundaries(){
+    // customized alert for boundaries
+    if (userLocation.x < 0) {
+        console.log('You are hitting the left wall');
+        userLocation.x = userLocation.x + 150;
+        hit = true;
+    }
+    if (userLocation.x > 500) {
+        console.log('You are hitting the right wall');
+        userLocation.x = userLocation.x - 150;
+        hit = true;
+    }
+    if (userLocation.y < 0) {
+        console.log('You are hitting the top wall');
+        userLocation.y = userLocation.y + 150;
+        hit = true;
+    }
+    if (userLocation.y > 500) {
+        console.log('You are hitting the bottom wall');
+        userLocation.y = userLocation.y - 150;
+        hit = true;
+    }
+}
+
+function startMusic(){
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //0.16, 0.2, 0.25, 0.33, 0.5, 1
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    volumeLevel = 1 - volumeLevel + step;
+    console.log(volumeLevel);
+    sfx.step.volume(0.1);
+    //sfx.step.volume(volumeLevel);
+    music.level0.volume(volumeLevel);
+    playMusic1();
+}
+
+function changeVolume(){
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    volumeLevel = 1 - volumeLevel + step;
+    //sfx.step.volume(volumeLevel);
+    music.level0.volume(volumeLevel);
+    console.log(volumeLevel);
+}
+
+var music = {
+    level0: new Howl({
+        src: ['/audio/level1.mp3'],
+        loop: true,
+        volume: 0,
+        preload: true,
+    }),
+}
+
+var sfx = {
+    step: new Howl({
+        src: ['/audio/step.mp3'],
+        volume: 0,
+        preload: true,
+    }),
+    success: new Howl({
+        src: ['/audio/success.mp3'],
+    }),
+    coin: new Howl({
+        src: ['/audio/coin-collected.mp3'],
+    }),
+}
+
+
+function playMusic1(){
+    music.level0.play();
+}
+
+function playStep(){
+    sfx.step.play();
+}
+
+function playSuccess(){
+    sfx.success.volume(0.5);
+    sfx.success.play();
+}   
+
 
 function levelDecision(level) {
     switch(level) {

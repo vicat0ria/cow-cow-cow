@@ -8,7 +8,6 @@ let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 let level = 0
 function loadGame() {
-    // levelDecision(1);
     document.getElementById('container').style.display = 'none';
     document.getElementById('gameCanvas').style.display = 'block';
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 

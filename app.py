@@ -1,7 +1,6 @@
 # Dependencies: Flask, Numpy, Pandas
 from flask import Flask,render_template, request, jsonify
 import pandas as pd
-from apscheduler.schedulers.background import BackgroundScheduler
 
 
 user_data = pd.DataFrame({

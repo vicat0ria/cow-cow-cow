@@ -42,7 +42,7 @@
             <button class="game-button" onclick="resetGame()">Reset</button>
         </div>
     
-        <div id="canvas-container">
+        <div id="canvas-container" tabindex="-1" role="region" aria-label="Game Canvas">
             <h1 class="level-indicator" id="game-level-heading">Level: <span id="current-level">0</span></h1>
             <canvas id="gameCanvas" width="600" height="600"></canvas>
             <div id="coordinates">
@@ -73,7 +73,7 @@
                 Enter a unique user ID to save your progress.
             </div>
             <h2>Enter a unique user ID to save your progress.</h2>
-            <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID" onkeydown="checkKey()"></label>
+            <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID or Press Enter" aria-label="Input User ID or Press Enter" onkeydown="checkKey()"></label>
         </div>
     </section>
 
@@ -85,8 +85,8 @@
         </div>
   
         <div class="levels-grid-container"> 
-            <button class="levels-button" onclick="loadGameObjective(); navigateTo('about-game');">1</button>
-            <button class="levels-button" onclick="loadGameObjective()" disabled>2</button>
+            <button class="levels-button" onclick="loadGameObjective(); navigateTo('about-game');" aria-label="Level One">1</button>
+            <button class="levels-button" onclick="loadGameObjective();" disabled>2</button>
             <button class="levels-button" onclick="loadGameObjective()" disabled>3</button>
             <button class="levels-button" onclick="loadGameObjective()" disabled>4</button>
             <button class="levels-button" onclick="loadGameObjective()" disabled>5</button>
@@ -101,14 +101,7 @@
         <div id="about-game-header"> 
             <h1>GAME OBJECTIVE</h1>
             <div id="user-id-instructions" class="sr-only">
-                The objective of the game is to find where the music is coming from.
-
-                Navigate towards the music using the arrow keys.
-                
-                If the music is getting louder, then you’re getting closer.
-                
-                A noise indicates a legal move. No noise means that you’ve hit a wall and cannot move in that direction.
-            </div>
+                The objective of the game is to find where the music is coming from. Navigate towards the music using the arrow keys. If the music is getting louder, then you’re getting closer. A noise indicates a legal move. No noise means that you’ve hit a wall and cannot move in that direction.</div>
             <h2>The objective of the game is to find where the music is coming from.
 
                 Navigate towards the music using the arrow keys.
@@ -175,7 +168,6 @@
 
     <!-- <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID" oninput="checkKey()"></label> -->
 
-    <canvas id="gameCanvas" width="600" height="600"></canvas>
     <div id="coordinates">
         <p>X:<span id="x-coordinate">50</span></p>
         <p>Y:<span id="y-coordinate">50</span></p>

@@ -11,11 +11,32 @@ body {
     height: 90vh;
     text-align: center;
 }
-h1{
-    font-size: 3em;
+
+#settings, #coordinates, #leaderboard-results, #leaderboard-level-select, #create-user-id{
+    display: none;
 }
-span{
-    font-size: 15px;
+
+#font-size-settings, #create-user-id{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    text-align: center;
+}
+
+h1{
+    font-size: var(--h1-font-size);
+}
+#create-user-id-heading{
+    margin-bottom:0;
+}
+p{
+    font-size: var(--p-font-size);
 }
 h2{
     font-size: 2em;
@@ -44,13 +65,59 @@ h2{
     border-color: yellow; 
     outline: 3px solid yellow; 
 }
-#gameCanvas {
-    /* width: 800; 
-    height: 800; */
-    background-color: black; 
-    border: solid 10px red; 
-    display: none;
+
+input[type="text"] {
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    padding: 20px 40px; 
+    border-width: var(--border-width);
+    border-style: var(--border-style);
+    border-color: var(--border-color);
+    border-radius: 10px; 
+
+    font-weight: bold;
+    
+    width: var(--width);
+    cursor: text; /* Cursor to indicate editable text */
+    font-size: 16px; 
 }
-#coordinates {
-    display: none;
+
+input[type="text"]::placeholder {
+    color: var(--text-color);
+}
+
+/* Styling for when the input is focused */
+input[type="text"]:focus,
+input[type="text"]:hover {
+    border-color: yellow; 
+}
+
+.font-sizes{
+    display: inline-flex;
+    align-items: center; /* Keeps items aligned at the same height */
+    justify-content: space-around; /* Optional: Distributes space around items for separation */
+    padding: 10px; /* Adds some padding inside the container */
+}
+.small-size, .medium-size, .large-size{
+    width: 150px; /* Smaller width for the button boxes */
+    height: 80px; /* Adjusts height automatically based on content, or set a specific height */
+    margin: 0 10px; /* Adds horizontal margin for separation between items */
+    /* Additional styling */
+    text-align: center; /* Ensures text is centered */
+    padding: 5px 0; /* Adds padding inside each button box */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+}
+.small-size{
+    font-size: 16px;
+}
+.medium-size{
+    font-size: 25px;
+}
+.large-size{
+    font-size: 35px;
+}
+
+#create-user-id{
+    display:none;
 }

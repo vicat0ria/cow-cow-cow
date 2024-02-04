@@ -115,6 +115,33 @@ h2{
     outline: 3px solid yellow; 
 }
 
+input[type="text"] {
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    padding: 20px 40px; 
+    border-width: var(--border-width);
+    border-style: var(--border-style);
+    border-color: var(--border-color);
+    border-radius: 10px; 
+
+    font-weight: bold;
+    
+    width: 10%;
+    cursor: text; /* Cursor to indicate editable text */
+    font-size: 16px; 
+}
+
+input[type="text"]::placeholder {
+    color: var(--text-color);
+}
+
+/* Styling for when the input is focused */
+input[type="text"]:focus,
+input[type="text"]:hover {
+    border-color: yellow; 
+}
+
 .font-sizes{
     display: inline-flex;
     align-items: center; /* Keeps items aligned at the same height */

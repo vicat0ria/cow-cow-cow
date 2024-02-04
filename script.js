@@ -38,7 +38,6 @@ function draw() {
 }
 
 function startMusic(){
-    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
     //0.16, 0.2, 0.25, 0.33, 0.5, 1
     var maxVolume = 6;
     var step = 1 / maxVolume;

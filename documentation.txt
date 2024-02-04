@@ -1,0 +1,97 @@
+playMusc1():
+	Plays the background music required for finding the target. 
+
+playStep():
+	Play the step sound for each successful step taken. 
+
+playSuccess():
+	Plays winning music for every level that is completed. 
+
+checkKey():
+	Function for functioning of userId. 
+
+loadGame():
+Called when the player begins the game. It sets up the screen depending on what option is selected. This is done by hiding the HTML elements and displaying the required ones.
+
+loadSettings(), loadFontSizeSettings(), loadColorContrastSettings(), loadKeyBindSettings(), loadUserId(), loadLevelSelection(), loadGameObjectve()
+Similar to loadGame() to load the frames for the screens. 
+
+getCoords():
+	Gets coordinates of the player.
+
+draw():
+Set up the canvas, including target, user, background. Continuously calls the levelDecision() to continue the game in a loop, while making the required changes.
+
+resetGame():
+	Sets the coordinates (0,0) for the user to go back to the starting position. 
+
+startMusic() 
+	Start playing the music in the background, indicating the start of the game. 
+
+changeVolume()
+Function to change the volume level of the music depending on how far the player is from the target.
+
+Keydown eventListener:
+EventListener for 'keydown' to see which arrow key is clicked. There is a check for wall collision and the user is prompted with instructions using the audio cues.
+
+customAlertBoundaries():
+Sends a custom message to the user saying which bounndary wall they have hit to play accordingly.
+
+levelDecision():
+Sets customized location for target and userSize depending on the chosen level. This calls addWalls() if the level has any obstacles.
+
+addWalls():
+Depending on which level the user is on, the walls and other obstacles are added to the game. This is achieved using fillRect from canvas.getContext() -> an HTML element. Also, pushes the decided walls into an array for use in later functions.
+
+checkWallCollision():
+Uses the walls from the array to check if the user is in any of the coordinates in the array. If they are not, they can continue the game and if they are, it gives them an indication about it. Sends a custom message to the user saying which boundary wall they have hit to play accordingly. 
+
+changeFontSize():
+	Changes the font size of all text 
+
+changeColorScheme():
+	Changes the theme of the site
+
+navigateTo():
+Hides the currently visible page, shows a new page based on the pageId argument, manages focus for accessibility, and announces the page change to screen readers.
+
+goBack():
+Stops the current level's music, resets the stopwatch, navigates to the previous page in the navigation stack by hiding the current page and showing the previous one, manages focus for accessibility, and announces the back navigation to screen readers.
+
+handleKeyBind():
+Assigns the pressed key to a selected input's value while allowing default behavior for specific key combinations like Ctrl+R and Shift+Tab, and ignoring actions for the Tab and Shift keys alone to preserve their standard functionality.
+
+saveKeyBindings():
+Updates a keyBindings object with values from specific input elements representing up, down, left, and right controls.
+
+announcePageChange():
+Constructs and sets a text message announcing a navigation change to users, indicating whether they've navigated to a new page or returned to a previous one, and updates the content of a designated element to make this announcement accessible
+
+updateTitleAndHeading()
+Changes the web page's title to newTitle and sets focus to an HTML element identified by headingId, to improve accessibility and user orientation after a dynamic content update.
+
+updateStopwatch():
+Updates the stopwatch based on how many seconds and minutes are passed and formats the time to show on the screen. 
+
+startStopwatch():
+	It starts the stop watch and sets the interval to ensure that it is updating seconds. 
+
+stopStopwatch():
+Called to pause to have the timer stop for the time interval. 	
+
+resetStopwatch():
+Called when the user selects to reset the progress of the game. It makes the timer start from 0. 
+
+padTime():
+	Formats the time string by including padding. 
+
+pauseGame()
+	It pauses the game, specifically the timer for the user to continue the game later on. 
+
+saveGame():
+It is supposed to save the user coordinates in the database which will be later accessed when the user logs in to play in the future. 
+
+showLeaderBoard():
+Shows the leaderboard levels after hiding the previous HTML elements. It also announces the page changes for voice over. 
+
+

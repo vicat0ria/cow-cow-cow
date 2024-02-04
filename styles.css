@@ -121,18 +121,6 @@ h2{
     font-size: 35px;
 }
 
-#settings{
-    display:none;
-}
-#font-size-settings{
-    display:none;
-}
-#color-contrast-settings{
-    display:none;
-}
-#key-bind-settings{
-    display:none;
-}
 #create-user-id{
     display:none;
 }

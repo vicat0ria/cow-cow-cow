@@ -7,8 +7,19 @@ var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 let level = 0;
+
+function checkKey() {
+    document.addEventListener('keydown', function(event) { // Explicitly pass the event object
+        if (event.key === "Enter") {
+            loadGame();
+        }
+    }, { once: true }); // Use the `{ once: true }` option so the listener is removed after firing once
+}
+
+
 function loadGame() {
     // levelDecision(1);
+    navigateTo('canvas-container');
     document.getElementById('container').style.display = 'none';
     document.getElementById('canvas-container').style.display = 'flex';
     document.getElementById('gameCanvas').style.display = 'flex';
@@ -367,17 +378,24 @@ function goBack() {
 // Variable to keep track of which input is currently active
 let currentKeyBindInput = null;
 
-document.querySelectorAll('input[type="text"]').forEach(input => {
-    input.addEventListener('focus', function() {
-        currentKeyBindInput = this; // Set the current input
-        document.addEventListener('keydown', handleKeyBind);
-    });
+// List of specific input IDs you want to target
+const inputIds = ['bind-up', 'bind-down', 'bind-left', 'bind-right'];
 
-    input.addEventListener('blur', function() {
-        document.removeEventListener('keydown', handleKeyBind);
-        currentKeyBindInput = null; // Clear the current input
-    });
+inputIds.forEach(inputId => {
+    const input = document.getElementById(inputId);
+    if (input) { // Check if the element exists
+        input.addEventListener('focus', function() {
+            currentKeyBindInput = this; // Set the current input
+            document.addEventListener('keydown', handleKeyBind);
+        });
+
+        input.addEventListener('blur', function() {
+            document.removeEventListener('keydown', handleKeyBind);
+            currentKeyBindInput = null; // Clear the current input
+        });
+    }
 });
+
 
 function handleKeyBind(e) {
     // Allow default behavior for the combination of Ctrl+R or Shift+Tab

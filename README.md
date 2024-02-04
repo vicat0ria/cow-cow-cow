@@ -1,9 +1,12 @@
 # Accessbility Maze Game Team 02
 
-## How to Play
-
-- Listen to the audio cues to understand your surroundings within the maze.
-- Solve the maze by finding the object, guided by auditory hints and feedback.
+## Instructions to play
+- Controls: Keyboard
+- Every level, you will listen to music and your task is to find the hidden object on screen using it. 
+- Every step you take closer to the target, the music gets louder and lower if you go farther away.
+- Level 0 and Level 1 have no obstacles and there are preset obstacles in the map to make it interesting. 
+- If you are hitting a wall or a boundary, there is no sound to indicate it. Listen to 'step' sound to ensure you are moving correct. 
+- You will hear tone indicating success upon discovery of the item and you will be prompted to go the next level. 
 
 ## Prequisites 
 
@@ -36,4 +39,3 @@ Windows: `python app.py`
 MacOS: `python3 app.py`
 
 5. Open your web browser and navigate to `http://127.0.0.1:5000` to start playing!
-

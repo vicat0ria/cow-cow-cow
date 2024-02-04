@@ -52,8 +52,6 @@ h2{
     border: solid 10px red; 
     display: none;
 }
-#x-coordinate, #y-coordinate {
-    /* display: none;  */
-    margin-top: 5px;
-
+#coordinates{
+    display: none;
 }

@@ -13,6 +13,7 @@ function loadGame() {
     document.getElementById('gameCanvas').style.display = 'block';
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
+
     draw(); 
 }
 

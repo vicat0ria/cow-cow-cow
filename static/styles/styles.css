@@ -1,7 +1,7 @@
 :root {
     /* Default sizes */
     --h1-font-size: 7em; /* Example default size */
-    --h2-font-size: 2em; /* Example default size */
+    --h2-font-size: 3.5em; /* Example default size */
     --button-font-size: 25px; /* Example default size */
     --p-font-size: 20px;
     --text-color: #000000; /* Default text color */
@@ -33,7 +33,7 @@ body{
 
 #intro { 
     font-size: 2em;
-    font-weight: medium;
+    font-weight: 600;
     flex: 1; 
     align-self: stretch; 
     padding: 0 20% 0 20%;  

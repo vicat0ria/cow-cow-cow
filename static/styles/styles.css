@@ -115,8 +115,8 @@ h2{
 .menu-button:focus {
     background-color: var(--text-color);
     color: var(--background-color);
-    border-color: yellow; 
-    outline: 3px solid yellow; 
+    /* border-color: yellow; 
+    outline: 3px solid yellow;  */
 }
 
 input[type="text"] {

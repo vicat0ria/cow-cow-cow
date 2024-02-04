@@ -86,7 +86,6 @@ MacOS: `python3 app.py`
 - EventListener for 'keydown' to see which arrow key is clicked. There is a check for wall collision and the user is prompted with instructions using the audio cues. 
 - Different music auidos are used to indicate 'success', 'go ahead' and also the background music to find the target. 
 
-
 ## Accessibility features/ADA compliance
 
 - Performed user-testing using the keyboard and OS text-to-speech tool

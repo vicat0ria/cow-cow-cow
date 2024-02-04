@@ -6,15 +6,28 @@ var userSize;
 var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
-
-function loadGame(){
+let level = 0
+function loadGame() {
+    // levelDecision(1);
     document.getElementById('container').style.display = 'none';
     document.getElementById('gameCanvas').style.display = 'block';
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
-
     draw(); 
-    // playMusic1();
+}
+
+function getCoords() {
+    // Using AJAX to send the value to Flask
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/receive_value', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    var coords = {
+        userX: userLocation.x,
+        userY: userLocation.y,
+        targetX: targetLocation.x,
+        targetY: targetLocation.y
+    }
+    xhr.send(JSON.stringify(coords));
 }
 
 function draw() {
@@ -26,35 +39,17 @@ function draw() {
     ctx.fillStyle = 'white';
     ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
 
-    if (hasWon) {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
-    }
-
-    levelDecision(2);
-    startMusic();
+    levelDecision(level);
 
     // Check if the user has reached the hidden object
     if (userLocation.x == targetLocation.x &&
         userLocation.y == targetLocation.y) {
-        playSuccess();   
-        music.level0.play();
         alert('Congratulations! You found the hidden object.');
-        resetGame();
+        resetGame()
+        level++;
     }
+    getCoords();
     requestAnimationFrame(draw);
-}
-
-function startMusic(){
-    var volumeLevel = 1 / (Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y));
-    console.log(volumeLevel);
-    music.level0.volume(volumeLevel);
-    playMusic1();
-}
-
-function changeVolume(){
-    var volumeLevel = 1 / (Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y));
-    music.level0.volume(volumeLevel);
 }
 
 function resetGame() {
@@ -73,44 +68,24 @@ document.addEventListener('keydown', (event) => {
                 userLocation.y -= speed;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            playStep();
-            changeVolume();
             break;
         case 'ArrowDown':
             if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
                 userLocation.y += speed;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            playStep();
-            changeVolume();
             break;
         case 'ArrowLeft':
             if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
                 userLocation.x -= speed;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            playStep();
-            changeVolume();
             break;
         case 'ArrowRight':
             if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
                 userLocation.x += speed;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            playStep();
-            changeVolume();
             break;
     }
 
@@ -136,64 +111,6 @@ document.addEventListener('keydown', (event) => {
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
 });
-
-
-//Sound
-var sfx = {
-    push: new Howl({
-        src: [
-            '',
-        ],
-        loop: true,
-        oneend: function() {
-            console.log("Done playing sfx")
-        }
-    })
-}
-
-var music = {
-    level0: new Howl({
-        src: ['/audio/level1.mp3'],
-        loop: true,
-        volume: 0,
-    }),
-    level1: new Howl({
-        src: ['/audio/level1.mp3'],
-        loop: true
-    }),
-    level2: new Howl({
-        src: ['/audio/level1.mp3'],
-        loop: true
-    }),
-}
-
-var sfx = {
-    step: new Howl({
-        src: ['/audio/step.mp3'],
-    }),
-    success: new Howl({
-        src: ['/audio/success.mp3'],
-    }),
-    coin: new Howl({
-        src: ['/audio/coin-collected.mp3'],
-    }),
-}
-
-// var volumeLevel = 1/(abs(userLocation.x - targetLocation.x)+ abs(userLocation.y - targetLocation.y));
-// console.log(volumeLevel);
-
-function playMusic1(){
-    music.level0.play();
-}
-
-function playStep(){
-    sfx.step.play();
-}
-
-function playSuccess(){
-    sfx.success.play();
-}   
-
 
 function levelDecision(level) {
     switch(level) {

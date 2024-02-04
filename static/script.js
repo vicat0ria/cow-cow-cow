@@ -6,7 +6,7 @@ var userSize;
 var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
-
+let level = 0
 function loadGame() {
     // levelDecision(1);
     document.getElementById('container').style.display = 'none';
@@ -39,13 +39,14 @@ function draw() {
     ctx.fillStyle = 'white';
     ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
 
-    levelDecision(2);
+    levelDecision(level);
 
     // Check if the user has reached the hidden object
     if (userLocation.x == targetLocation.x &&
         userLocation.y == targetLocation.y) {
         alert('Congratulations! You found the hidden object.');
-        resetGame();
+        resetGame()
+        level++;
     }
     getCoords();
     requestAnimationFrame(draw);

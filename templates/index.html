@@ -27,14 +27,37 @@
         </nav>
     </main>
     
-    <section id="canvas-container">
+    <section id="game-container" aria-labelledby="game-level-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
-        <canvas id="gameCanvas" width="600" height="600"></canvas>
-        <div id="coordinates">
-            <p>X:<span id="x-coordinate">50</span></p>
-            <p>Y:<span id="y-coordinate">50</span></p>
+        <div class="game-controls left-controls">
+            <button class="game-button" onclick="pauseGame()">Pause</button>
+            <button class="game-button save-button" onclick="saveGame()">Save Game</button>
+            <button class="game-button" onclick="resetGame()">Reset</button>
+        </div>
+    
+        <div id="canvas-container">
+            <div id="level-indicator game-level-heading">Level: <span id="current-level">0</span></div>
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+            <div id="coordinates">
+                <p>X:<span id="x-coordinate">50</span></p>
+                <p>Y:<span id="y-coordinate">50</span></p>
+            </div>
+        </div>
+    
+        <div class="game-info right-controls">
+            <div tabindex="0" class="game-button" id="stopwatch">Timer: 00:00:00</div>
+            <div tabindex="0" class="game-button" id="high-score">High Score: 00:00</div>
+            <div class="arrow-keys">
+                <button class="game-button up-arrow">&uarr;</button> <!-- Top arrow -->
+                <div class="horizontal-arrows">
+                    <button class="game-button left-arrow">&larr;</button> <!-- Left arrow -->
+                    <button class="game-button down-arrow">&darr;</button> <!-- Bottom arrow -->
+                    <button class="game-button right-arrow">&rarr;</button> <!-- Right arrow -->
+                </div>
+            </div>
         </div>
     </section>
+    
 
     <section id="create-user-id" aria-labelledby="create-user-id-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>

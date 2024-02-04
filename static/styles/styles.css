@@ -41,6 +41,15 @@ body{
     text-align: center;
 }
 
+#game-container{
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 #font-size-settings, #create-user-id, #level-select{
     background-color: var(--background-color);
     color: var(--text-color);
@@ -53,7 +62,11 @@ body{
     height: 50vh;
     text-align: center;
 }
-
+#level-indicator {
+    margin-bottom: 10px; /* Space between level indicator and canvas */
+    font-size: 20px; 
+    text-align: center; 
+}
 h1{
     font-size: var(--h1-font-size);
 }
@@ -75,17 +88,11 @@ h2{
     cursor: pointer;
     font-size: var(--p-font-size);
 }
-.back:hover,
-.back:focus{
-    background-color: var(--text-color); /* Darker shade on hover */
-    color: var(--background-color);
-    border-color: yellow; 
-    outline: 3px solid yellow; 
-}
+
 .menu {
     margin-top: 5px;
 }
-.menu-button {
+.menu-button, .game-button {
     background-color: var(--background-color);
     color: var(--text-color);
 
@@ -106,19 +113,87 @@ h2{
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, outline 0.3s;
     border-radius: 10px; 
 }
+.game-button{
+    width: auto!important;
+}
+#stopwatch, #high-score{
+    width:150px!important;
+}
 
 .menu-button:hover,
-.menu-button:focus {
+.menu-button:focus,
+.game-button:hover,
+.game-button:focus,
+.back:hover,
+.back:focus {
     background-color: var(--text-color);
     color: var(--background-color);
     border-color: yellow; 
     outline: 3px solid yellow; 
 }
-#canvas-container{
-    display:flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%; 
 }
+
+#canvas-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%; /* Adjust based on actual width of the canvas */
+
+}
+
+.game-controls, .game-info {
+    width: 30%; /* Example width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.game-controls button, .game-info div {
+    margin: 10px 0; /* Space out buttons and info divs */
+}
+#gameContainer > div, #gameContainer > button {
+    flex: 1!important; /* Both take equal space */
+}
+.arrow-keys button {
+    text-align: center; /* Center arrow symbols */
+    width: 10px!important; /* Explicit width for smaller buttons */
+}
+.horizontal-arrows{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.left-arrow, .right-arrow {
+    margin: 0 5px; /* Adjust spacing around left and right arrows */
+}
+.arrow-keys {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.down-arrow {
+    margin: 0 15px; /* Spacing for the down arrow, adjust as needed */
+}
+
+.left-arrow, .right-arrow {
+    margin: 0 5px; /* Adjust as necessary for spacing */
+}
+
+.down-arrow {
+    margin: 0 10px; /* Adjust as necessary for spacing around the down arrow */
+}
+
 #gameCanvas {
     /* width: 800; 
     height: 800; */
@@ -160,7 +235,7 @@ input[type="text"]:hover {
 .font-sizes{
     display: inline-flex;
     align-items: center; /* Keeps items aligned at the same height */
-    justify-content: space-around; /* Optional: Distributes space around items for separation */
+    justify-content: space-around; 
     padding: 10px; /* Adds some padding inside the container */
 }
 .small-size, .medium-size, .large-size{
@@ -182,8 +257,9 @@ input[type="text"]:hover {
     font-size: 35px;
 }
 
+
 #settings, #font-size-settings, #color-contrast-settings,
-#key-bind-settings, #canvas-container, #create-user-id{
+#key-bind-settings, #game-container, #create-user-id, #level-select{
     display:none;
 }
 

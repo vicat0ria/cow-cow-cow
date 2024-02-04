@@ -7,6 +7,23 @@ var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 let level = 0;
+
+function checkKey() {
+    // document.getElementById('myInput').addEventListener('keydown', function(event) {
+    //     if (event.key === "Enter") {
+    //         console.log('Enter key was pressed.');
+    //         // Example action: change background color of input
+    //         // event.target.style.backgroundColor = 'yellow';
+    //     }
+    // });
+    document.addEventListener('keydown', function(event) {
+        if(event.key === 'Enter') {
+            loadGame();
+        }
+    });
+}
+
+
 function loadGame() {
     // levelDecision(1);
     document.getElementById('container').style.display = 'none';

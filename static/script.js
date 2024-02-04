@@ -320,7 +320,7 @@ var sfx = {
         preload: true,
     }),
     success: new Howl({
-        src: ['static/audio/success.mp3'],
+        src: ['static/audio/success_editted.mp3'],
     }),
     coin: new Howl({
         src: ['static/audio/coin-collected.mp3'],

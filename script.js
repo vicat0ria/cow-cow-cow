@@ -1,5 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+var walls = [];
 
 var userSize;
 var targetLocation;
@@ -68,7 +69,10 @@ document.addEventListener('keydown', (event) => {
     // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
-            userLocation.y -= speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -150)){
+                userLocation.y -= speed;
+            }
+            else {console.log("Hitting the wall!")}; // will be changed to voice commands
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
@@ -76,7 +80,10 @@ document.addEventListener('keydown', (event) => {
             changeVolume();
             break;
         case 'ArrowDown':
-            userLocation.y += speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
+                userLocation.y += speed;
+            }
+            else {console.log("Hitting the wall!")}; // will be changed to voice commands
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
@@ -84,7 +91,10 @@ document.addEventListener('keydown', (event) => {
             changeVolume();
             break;
         case 'ArrowLeft':
-            userLocation.x -= speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
+                userLocation.x -= speed;
+            }
+            else {console.log("Hitting the wall!")}; // will be changed to voice commands
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
@@ -92,7 +102,10 @@ document.addEventListener('keydown', (event) => {
             changeVolume();
             break;
         case 'ArrowRight':
-            userLocation.x += speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
+                userLocation.x += speed;
+            }
+            else {console.log("Hitting the wall!")}; // will be changed to voice commands
             if(sfx.step.playing()){
                 sfx.step.stop();
             }
@@ -191,25 +204,57 @@ function levelDecision(level) {
         case 1: 
             targetLocation = { x: 450, y: 450 };
             userSize = 150;
-            // addWalls(2);
             break;
+        case 2: 
+            targetLocation = { x: 150, y: 450 };
+            userSize = 150;
+            addWalls(2);
+            break;
+        case 3:
+            targetLocation = { x: 450, y: 0};
+            userSize = 150;
+            break;
+        case 4: 
+            targetLocation = { x: 150, y: 450};
+            userSize = 150;
+            break;
+        case 5: 
+            targetLocation = { x: 480, y: 360};
+            userSize = 120; 
+            break; 
     }
 }
 
-// function addWalls(level) {
-//     switch(level) {
-//         case 2:
-//             ctx.beginPath();
-//             ctx.moveTo(0, 150);
-//             ctx.lineTo(150, 150);
-//             ctx.lineTo(150, 600);
-//             ctx.lineWidth = 10;
-//             ctx.strokeStyle = "pink";
-//             ctx.stroke();
-//             ctx.moveTo(300, 0);
-//             ctx.lineTo(300, 450);
-//             ctx.lineWidth = 10;
-//             ctx.strokeStyle = "pink";
-//             ctx.stroke();
-//     }
-// }
+function addWalls(level) {
+    switch(level) {
+        case 2:
+            walls = [];
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 150, userSize, userSize*3);
+            ctx.fillRect(300, 0, userSize, userSize*2);
+            walls.push([0,1],[0,2],[0,3],[2,0],[2,1]);
+            break;
+        case 3:
+            walls = [];
+            ctx.fillStyle = 'black';
+            ctx.fillRect();
+            ctx.fillRect();
+            walls.push();
+            break;
+    }
+}
+ 
+function checkWallCollision(x, y, xMove, yMove) {
+    for (const wall of walls) {
+        const wallX = wall[0] * userSize;
+        const wallY = wall[1] * userSize;
+        if (
+            x + xMove == wallX &&
+            y + yMove == wallY
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+}

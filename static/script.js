@@ -6,7 +6,7 @@ var userSize;
 var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
-let level = 0
+let level = 0;
 function loadGame() {
     // levelDecision(1);
     document.getElementById('container').style.display = 'none';
@@ -26,7 +26,7 @@ function getCoords() {
         userY: userLocation.y,
         targetX: targetLocation.x,
         targetY: targetLocation.y
-    }
+    };
     xhr.send(JSON.stringify(coords));
 }
 
@@ -48,6 +48,9 @@ function draw() {
         resetGame()
         level++;
     }
+    if (level > 5) {
+        level = 0;
+    }
     getCoords();
     requestAnimationFrame(draw);
 }
@@ -59,31 +62,31 @@ function resetGame() {
 }
 
 document.addEventListener('keydown', (event) => {
-    const speed = 150;
+    // const speed = 150;
 
     // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -150)){
-                userLocation.y -= speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -1*userSize)){
+                userLocation.y -= userSize;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowDown':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
-                userLocation.y += speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, userSize)){
+                userLocation.y += userSize;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowLeft':
-            if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
-                userLocation.x -= speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, -1*userSize, 0)){
+                userLocation.x -= userSize;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowRight':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
-                userLocation.x += speed;
+            if (!checkWallCollision(userLocation.x, userLocation.y, userSize, 0)){
+                userLocation.x += userSize;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
@@ -92,19 +95,19 @@ document.addEventListener('keydown', (event) => {
     // customized alert for boundaries
     if (userLocation.x < 0) {
         console.log('You are hitting the left wall');
-        userLocation.x = userLocation.x + 150;
+        userLocation.x = userLocation.x + userSize;
     }
     if (userLocation.x > 500) {
         console.log('You are hitting the right wall');
-        userLocation.x = userLocation.x - 150;
+        userLocation.x = userLocation.x - userSize;
     }
     if (userLocation.y < 0) {
         console.log('You are hitting the top wall');
-        userLocation.y = userLocation.y + 150;
+        userLocation.y = userLocation.y + userSize;
     }
     if (userLocation.y > 500) {
         console.log('You are hitting the bottom wall');
-        userLocation.y = userLocation.y - 150;
+        userLocation.y = userLocation.y - userSize;
     }
 
     // update the location: for testing purposes
@@ -130,15 +133,22 @@ function levelDecision(level) {
         case 3:
             targetLocation = { x: 450, y: 0};
             userSize = 150;
+            addWalls(3);
             break;
         case 4: 
-            targetLocation = { x: 150, y: 450};
+            targetLocation = { x: 300, y: 300};
             userSize = 150;
+            addWalls(4);
             break;
         case 5: 
             targetLocation = { x: 480, y: 360};
             userSize = 120; 
-            break; 
+            addWalls(5);
+            break;  
+        default: 
+            targetLocation = { x: 450, y: 0 };
+            userSize = 150;
+            break;
     }
 }
 
@@ -146,17 +156,44 @@ function addWalls(level) {
     switch(level) {
         case 2:
             walls = [];
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = 'pink';
             ctx.fillRect(0, 150, userSize, userSize*3);
             ctx.fillRect(300, 0, userSize, userSize*2);
             walls.push([0,1],[0,2],[0,3],[2,0],[2,1]);
             break;
         case 3:
             walls = [];
-            ctx.fillStyle = 'black';
-            ctx.fillRect();
-            ctx.fillRect();
-            walls.push();
+            ctx.fillStyle = 'pink';
+            ctx.fillRect(150, 0, userSize, userSize);
+            ctx.fillRect(450, 150, userSize, userSize);
+            ctx.fillRect(0, 300, userSize*4, userSize*2);
+            walls.push([1,0], [3,1], [0,2], [1,2], [2,2], [3,2]);
+            break;
+        case 4:
+            walls = [];
+            ctx.fillStyle = 'pink';
+            ctx.fillRect(0, 150, userSize*2, userSize*3);
+            ctx.fillRect(450, 150, userSize, userSize*3);
+            ctx.fillRect(300, 450, userSize, userSize);
+            walls.push([0,1],[1,1],[3,1],[0,2],[1,2],[1,3],[0,3],[1,3],[2,3],[3,3],[3,2]);
+            break;
+        case 5:
+            walls = [];
+            ctx.fillStyle = 'pink';
+            ctx.fillRect(120,0, userSize, userSize*2);
+            ctx.fillRect(240, 120, userSize*2, userSize);
+            ctx.fillRect(480, 0, userSize, userSize);
+            ctx.fillRect(120, 360, userSize, userSize*2);
+            ctx.fillRect(360, 360, userSize, userSize*2);
+            ctx.fillRect(480, 480, userSize, userSize);
+            walls.push([1,0],[1,1],[2,1],[3,1],[4,0],[1,3],[1,4],[3,3],[3,4],[4,4]);
+            break;
+        default:
+            walls = [];
+            ctx.fillStyle = 'pink';
+            ctx.fillRect(0, 150, userSize, userSize*3);
+            ctx.fillRect(300, 0, userSize, userSize*2);
+            walls.push([0,1],[0,2],[0,3],[2,0],[2,1]);
             break;
     }
 }

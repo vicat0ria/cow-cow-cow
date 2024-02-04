@@ -42,6 +42,12 @@ function loadKeyBindSettings(){
     announcePageChange('Key Bind settings page');
     updateTitleAndHeading('Key Bind Settings', 'key-bind-heading');
 }
+function loadUserId() {
+    document.getElementById('container').style.display = 'none';
+    document.getElementById('create-user-id').style.display = 'flex';
+    announcePageChange('User ID  page');
+    updateTitleAndHeading('Input User ID', 'key-bind-heading');
+}
 
 function getCoords() {
     // Using AJAX to send the value to Flask

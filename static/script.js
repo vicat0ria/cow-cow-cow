@@ -11,7 +11,8 @@ let level = 0;
 function checkKey() {
     document.addEventListener('keydown', function(event) { // Explicitly pass the event object
         if (event.key === "Enter") {
-            loadGame();
+            loadLevelSelection();
+            navigateTo('level-select');
         }
     }, { once: true }); // Use the `{ once: true }` option so the listener is removed after firing once
 }
@@ -60,6 +61,12 @@ function loadUserId() {
     document.getElementById('create-user-id').style.display = 'flex';
     announcePageChange('User ID page');
     updateTitleAndHeading('Input User ID', 'create-user-id-heading');
+}
+function loadLevelSelection(){
+    document.getElementById('create-user-id').style.display = 'none';
+    document.getElementById('level-select').style.display = 'flex';
+    announcePageChange('Level select page');
+    updateTitleAndHeading('Select a Level', 'level-select-header');
 }
 
 function getCoords() {

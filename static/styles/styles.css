@@ -27,7 +27,16 @@ body{
 }
 
 
-#container, #settings, #color-contrast-settings, #key-bind-settings {
+.levels-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 columns of equal width */
+    gap: 10px; /* Adjusts space between buttons */
+    padding: 20px; /* Adds some padding around the grid for spacing */
+    justify-items: center; /* Center-aligns items horizontally */
+    align-items: center; /* Center-aligns items vertically */
+}
+
+#container, #settings, #color-contrast-settings, #key-bind-settings, #level-select {
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -41,7 +50,7 @@ body{
     text-align: center;
 }
 
-#game-container{
+#game-container, #level-select{
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -50,7 +59,7 @@ body{
     text-align: center;
 }
 
-#font-size-settings, #create-user-id, #level-select{
+#font-size-settings, #create-user-id{
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -92,7 +101,7 @@ h2{
 .menu {
     margin-top: 5px;
 }
-.menu-button, .game-button {
+.menu-button, .game-button, .levels-button {
     background-color: var(--background-color);
     color: var(--text-color);
 
@@ -113,7 +122,7 @@ h2{
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, outline 0.3s;
     border-radius: 10px; 
 }
-.game-button{
+.game-button, .levels-button{
     width: auto!important;
 }
 #stopwatch, #high-score{
@@ -124,6 +133,8 @@ h2{
 .menu-button:focus,
 .game-button:hover,
 .game-button:focus,
+.levels-button:hover,
+.levels-button:focus,
 .back:hover,
 .back:focus {
     background-color: var(--text-color);

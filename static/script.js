@@ -185,7 +185,7 @@ function startMusic(){
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / userSize);
     volumeLevel = 1 - volumeLevel + step;
     music.level0.volume(volumeLevel);
-    sfx.step.volume(0.1);
+    sfx.step.volume(0.3);
     //sfx.step.volume(volumeLevel);
     playMusic1();
 }
@@ -286,7 +286,7 @@ function startMusic(){
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     volumeLevel = 1 - volumeLevel + step;
     console.log(volumeLevel);
-    sfx.step.volume(0.1);
+    sfx.step.volume(0.3);
     //sfx.step.volume(volumeLevel);
     music.level0.volume(volumeLevel);
     playMusic1();
@@ -692,4 +692,11 @@ function pauseGame() {
 function saveGame() {
     console.log("Game saved");
     // Implement save functionality
+}
+
+function showLeaderBoard()  {
+    document.getElementById('container').style.display = 'none';
+    document.getElementById('level-select-leaderboard').style.display = 'flex';
+    announcePageChange('Level select for Leaderboard');
+    updateTitleAndHeading('Select a Level', 'level-select-leaderboard');
 }

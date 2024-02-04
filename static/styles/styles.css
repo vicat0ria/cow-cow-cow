@@ -41,7 +41,7 @@ body{
     text-align: center;
 }
 
-#font-size-settings{
+#font-size-settings, #create-user-id{
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -142,7 +142,7 @@ input[type="text"] {
 
     font-weight: bold;
     
-    width: 10%;
+    width: var(--width);
     cursor: text; /* Cursor to indicate editable text */
     font-size: 16px; 
 }
@@ -183,6 +183,8 @@ input[type="text"]:hover {
 }
 
 #settings, #font-size-settings, #color-contrast-settings,
-#key-bind-settings, #canvas-container{
+#key-bind-settings, #canvas-container, #create-user-id{
     display:none;
 }
+
+

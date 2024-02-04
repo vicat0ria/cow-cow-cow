@@ -31,7 +31,7 @@ function draw() {
         ctx.fillRect(userLocation.x, userLocation.y, userSize, userSize);
     }
 
-    levelDecision(1);
+    levelDecision(2);
     startMusic();
 
     // Check if the user has reached the hidden object

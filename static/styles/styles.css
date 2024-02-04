@@ -1,8 +1,8 @@
 :root {
     /* Default sizes */
-    --h1-font-size: 7em; /* Example default size */
-    --h2-font-size: 3.5em; /* Example default size */
-    --button-font-size: 1.5625em; /* Example default size */
+    --h1-font-size: 3em; /* Example default size */
+    --h2-font-size: 2em; /* Example default size */
+    --button-font-size: 25px; /* Example default size */
     --p-font-size: 20px;
     --text-color: #000000; /* Default text color */
     --background-color: #FFFFFF; /* Default background color */
@@ -13,11 +13,6 @@
 
     --width: 350px;
   }
-
-* { 
-    box-sizing: border-box; 
-}
-
 body{
     background-color: var(--background-color);
     color: var(--text-color);   
@@ -31,17 +26,6 @@ body{
     overflow: hidden;
 }
 
-#intro { 
-    font-size: 2em;
-    font-weight: 600;
-    flex: 1; 
-    align-self: stretch; 
-    padding: 0 20% 0 20%;  
-    word-wrap: break-word; 
-    margin: 0;
-    /* border: 1px solid #ccc;  */
-    box-sizing: border-box; 
-}
 
 .levels-grid-container {
     display: grid;
@@ -95,9 +79,6 @@ body{
 h1{
     font-size: var(--h1-font-size);
 }
-#create-user-id-heading{
-    margin-bottom:0;
-}
 p{
     font-size: var(--p-font-size);
 }
@@ -139,7 +120,7 @@ h2{
     display: block;
     outline: none;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, outline 0.3s;
-    border-radius: 30px; 
+    border-radius: 10px; 
 }
 .game-button, .levels-button{
     width: auto!important;
@@ -161,8 +142,8 @@ h2{
 .back:focus {
     background-color: var(--text-color);
     color: var(--background-color);
-    /* border-color: yellow; 
-    outline: 3px solid yellow;  */
+    border-color: yellow; 
+    outline: 3px solid yellow; 
 }
 
 #game-container {
@@ -255,23 +236,6 @@ input[type="text"] {
     font-size: 16px; 
 }
 
-input[type="text"] {
-    background-color: var(--background-color);
-    color: var(--text-color);
-
-    padding: 20px 40px; 
-    border-width: var(--border-width);
-    border-style: var(--border-style);
-    border-color: var(--border-color);
-    border-radius: 10px; 
-
-    font-weight: bold;
-    
-    width: var(--width);
-    cursor: text; /* Cursor to indicate editable text */
-    font-size: 16px; 
-}
-
 input[type="text"]::placeholder {
     color: var(--text-color);
 }
@@ -313,3 +277,5 @@ input[type="text"]:hover {
 #about-game{
     display:none;
 }
+
+

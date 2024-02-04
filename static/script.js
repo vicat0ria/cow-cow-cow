@@ -58,6 +58,7 @@ function checkKey() {
 
 function loadGame() {
     // levelDecision(1);
+    document.getElementById("canvas-container").focus();
     navigateTo('game-container');
     document.getElementById('container').style.display = 'none';
     document.getElementById('game-container').style.display = 'flex';
@@ -523,6 +524,7 @@ function navigateTo(pageId, isBackNavigation = false) {
 function goBack() {
     if (navigationStack.length > 1) {
         music.level0.stop();
+        resetStopwatch();
         // Remove the current page from the stack
         const currentPageId = navigationStack.pop();
         document.getElementById(currentPageId).style.display = 'none';
@@ -659,7 +661,7 @@ function updateStopwatch() {
             hours++;
         }
     }
-    formattedTime = `${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`;
+    formattedTime = `Timer: ${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`;
     document.getElementById('stopwatch').innerText = formattedTime;
 }
 
@@ -676,7 +678,7 @@ function resetStopwatch() {
     seconds = 0;
     minutes = 0;
     hours = 0;
-    document.getElementById('stopwatch').innerText = '00:00:00';
+    document.getElementById('stopwatch').innerText = 'Timer: 00:00:00';
 }
 
 function padTime(time) {

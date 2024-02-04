@@ -95,18 +95,6 @@ h2{
     border-color: yellow; 
     outline: 3px solid yellow; 
 }
-<<<<<<< HEAD:static/styles/styles.css
-#gameCanvas {
-    /* width: 800; 
-    height: 800; */
-    background-color: black; 
-    margin-top: 200px;
-    border: solid 10px red; 
-    display: none;
-}
-#coordinates{
-    display: none;
-=======
 
 .font-sizes{
     display: inline-flex;
@@ -144,5 +132,4 @@ h2{
 }
 #key-bind-settings{
     display:none;
->>>>>>> fdb0ca4 (styles):styles.css
 }

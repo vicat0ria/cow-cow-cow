@@ -37,8 +37,8 @@ function draw() {
     // Check if the user has reached the hidden object
     if (userLocation.x == targetLocation.x &&
         userLocation.y == targetLocation.y) {
+        music.level0.stop();
         playSuccess();   
-        music.level0.play();
         alert('Congratulations! You found the hidden object.');
         resetGame();
     }
@@ -54,8 +54,9 @@ function startMusic(){
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     volumeLevel = 1 - volumeLevel + step;
     console.log(volumeLevel);
+    sfx.step.volume(0.1);
+    //sfx.step.volume(volumeLevel);
     music.level0.volume(volumeLevel);
-    sfx.step.volume(volumeLevel);
     playMusic1();
 }
 
@@ -66,8 +67,8 @@ function changeVolume(){
     //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     volumeLevel = 1 - volumeLevel + step;
+    //sfx.step.volume(volumeLevel);
     music.level0.volume(volumeLevel);
-    sfx.step.volume(volumeLevel);
     console.log(volumeLevel);
 }
 
@@ -77,73 +78,47 @@ function resetGame() {
     document.getElementById('y-coordinate').innerHTML = 0;
 }
 
+var hit = true;
+
 document.addEventListener('keydown', (event) => {
     const speed = 150;
-
     // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
             if (!checkWallCollision(userLocation.x, userLocation.y, 0, -150)){
                 userLocation.y -= speed;
-            }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            changeVolume();
-            playStep();
+                hit = false;
+            } else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowDown':
             if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
                 userLocation.y += speed;
+                hit = false;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            changeVolume();
-            playStep();
             break;
         case 'ArrowLeft':
             if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
                 userLocation.x -= speed;
+                hit = false;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            changeVolume();
-            playStep();
             break;
         case 'ArrowRight':
             if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
                 userLocation.x += speed;
+                hit = false;
             }
             else {console.log("Hitting the wall!")}; // will be changed to voice commands
-            if(sfx.step.playing()){
-                sfx.step.stop();
-            }
-            changeVolume();
-            playStep();
             break;
     }
-
-    // customized alert for boundaries
-    if (userLocation.x < 0) {
-        console.log('You are hitting the left wall');
-        userLocation.x = userLocation.x + 150;
+    customAlertForBoundaries();
+    if(sfx.step.playing()){
+        sfx.step.stop();
     }
-    if (userLocation.x > 500) {
-        console.log('You are hitting the right wall');
-        userLocation.x = userLocation.x - 150;
-    }
-    if (userLocation.y < 0) {
-        console.log('You are hitting the top wall');
-        userLocation.y = userLocation.y + 150;
-    }
-    if (userLocation.y > 500) {
-        console.log('You are hitting the bottom wall');
-        userLocation.y = userLocation.y - 150;
+    changeVolume();
+    if(!hit){
+        playStep();
     }
 
     // update the location: for testing purposes
@@ -151,18 +126,28 @@ document.addEventListener('keydown', (event) => {
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
 });
 
-
-//Sound
-var sfx = {
-    push: new Howl({
-        src: [
-            '',
-        ],
-        loop: true,
-        oneend: function() {
-            console.log("Done playing sfx")
-        }
-    })
+function customAlertForBoundaries(){
+    // customized alert for boundaries
+    if (userLocation.x < 0) {
+        console.log('You are hitting the left wall');
+        userLocation.x = userLocation.x + 150;
+        hit = true;
+    }
+    if (userLocation.x > 500) {
+        console.log('You are hitting the right wall');
+        userLocation.x = userLocation.x - 150;
+        hit = true;
+    }
+    if (userLocation.y < 0) {
+        console.log('You are hitting the top wall');
+        userLocation.y = userLocation.y + 150;
+        hit = true;
+    }
+    if (userLocation.y > 500) {
+        console.log('You are hitting the bottom wall');
+        userLocation.y = userLocation.y - 150;
+        hit = true;
+    }
 }
 
 var music = {
@@ -170,20 +155,15 @@ var music = {
         src: ['/audio/level1.mp3'],
         loop: true,
         volume: 0,
-    }),
-    level1: new Howl({
-        src: ['/audio/level1.mp3'],
-        loop: true
-    }),
-    level2: new Howl({
-        src: ['/audio/level1.mp3'],
-        loop: true
+        preload: true,
     }),
 }
 
 var sfx = {
     step: new Howl({
         src: ['/audio/step.mp3'],
+        volume: 0,
+        preload: true,
     }),
     success: new Howl({
         src: ['/audio/success.mp3'],
@@ -193,8 +173,6 @@ var sfx = {
     }),
 }
 
-// var volumeLevel = 1/(abs(userLocation.x - targetLocation.x)+ abs(userLocation.y - targetLocation.y));
-// console.log(volumeLevel);
 
 function playMusic1(){
     music.level0.play();
@@ -205,6 +183,7 @@ function playStep(){
 }
 
 function playSuccess(){
+    sfx.success.volume(0.5);
     sfx.success.play();
 }   
 

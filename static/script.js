@@ -8,6 +8,13 @@ let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 var level = 0;
 
+var stopwatchInterval;
+var seconds = 0;
+var minutes = 0;
+var hours = 0;
+
+var formattedTime;
+
 var music = {
     level0: new Howl({
         src: ['static/audio/level1.mp3'],
@@ -51,6 +58,7 @@ function loadGame() {
     updateTitleAndHeading('Game screen', 'canvas-container');
     draw(); 
     startMusic();
+    startStopwatch();
 }
 function loadSettings() {
     document.getElementById('container').style.display = 'none';
@@ -86,7 +94,9 @@ function getCoords() {
         userX: userLocation.x,
         userY: userLocation.y,
         targetX: targetLocation.x,
-        targetY: targetLocation.y
+        targetY: targetLocation.y,
+        lvl_curr: level,
+        time: formattedTime
     };
     xhr.send(JSON.stringify(coords));
 }
@@ -114,6 +124,7 @@ function draw() {
     
     getCoords();
     requestAnimationFrame(draw);
+    console.log(seconds)
 }
 
 function resetGame() {
@@ -490,3 +501,40 @@ function customAlertForBoundaries(){
     }
 }
 
+function updateStopwatch() {
+    seconds++;
+
+    if (seconds === 60) {
+        seconds = 0;
+        minutes++;
+
+        if (minutes === 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+
+    formattedTime = `${padTime(hours)}:${padTime(minutes)}:${padTime(seconds)}`;
+    document.getElementById('stopwatch').innerText = formattedTime;
+}
+
+function startStopwatch() {
+    stopwatchInterval = setInterval(updateStopwatch, 1000);
+
+}
+
+function stopStopwatch() {
+    clearInterval(stopwatchInterval);
+}
+
+function resetStopwatch() {
+    clearInterval(stopwatchInterval);
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    document.getElementById('stopwatch').innerText = '00:00:00';
+}
+
+function padTime(time) {
+    return time < 10 ? `0${time}` : time;
+}

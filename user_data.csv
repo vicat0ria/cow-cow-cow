@@ -1,6 +1,2 @@
 username,userX,userY,targetX,targetY
-<<<<<<< HEAD
-test,0,0,150,450
-=======
-test,150,150,150,450
->>>>>>> 82f82d1 (a)
+test,450,0,480,360

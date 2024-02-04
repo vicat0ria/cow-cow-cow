@@ -1,4 +1,4 @@
-# Accessbility Maze Game
+# Accessbility Maze Game Team 02
 
 ## How to Play
 

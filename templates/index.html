@@ -28,7 +28,7 @@
             <h2 id="main-heading">MAIN MENU</h2>
             <div class="menu">
                 <button class="menu-button" onclick="loadUserId(); navigateTo('create-user-id');">Play</button>
-                <button class="menu-button">Leaderboard</button>
+                <button class="menu-button" onclick="showLeaderBoard()">Leaderboard</button>
                 <button class="menu-button" onclick="loadSettings(); navigateTo('settings');">Settings</button>
             </div>
         </nav>
@@ -96,6 +96,26 @@
             <button class="levels-button" onclick="loadGame()" disabled>7</button>
             <button class="levels-button" onclick="loadGame()" disabled>8</button>
         </div>
+    </section>
+
+    <section id="level-select-leaderboard" aria-labelledby="level-select-leaderboard-header" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
+        <div class="level-select-leaderboard-header" id="level-select-leaderboard-header"> 
+            <h1>LEVEL SELECT</h1>
+            <h2>Select which level's Leaderboard do you want to see.</h2>
+        </div>
+  
+        <div class="levels-grid-container"> 
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>1</button>
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>2</button>
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>3</button>
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>4</button>
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>5</button>
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>6</button>
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>7</button>
+            <button class="levels-button" onclick="selectLevelLeader()" disabled>8</button>
+        </div>
+        <!-- selectLevelLeader() will be implemented to show score cards for each level -->
     </section>
 
     <section id="settings" aria-labelledby="settings-heading" hidden>

@@ -27,6 +27,7 @@
     </main>
 
     <section id="settings" aria-labelledby="settings-heading" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="settings-heading">SETTINGS</h1>
         <p>Change color contrast, font size, key binds, and voice over settings.</p>
         <div class="menu">
@@ -35,10 +36,10 @@
             <button class="menu-button" onclick="loadKeyBindSettings(); navigateTo('key-bind-settings');">Change Key-Binds</button>
             <button class="menu-button" aria-live="polite" onclick="toggleVoiceOver()">Voice-Over: <span id="voice-over-status">On</span></button>
         </div>
-        <button onclick="goBack()">Go Back</button>
     </section>
 
     <section id="font-size-settings" aria-labelledby="font-size-heading" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="font-size-heading">FONT SIZE SETTINGS</h1>
         <div class="menu font-sizes">
             <button class="menu-button small-size" onclick="changeFontSize('small')">Small</button>
@@ -48,20 +49,20 @@
         <div class="menu">
             <div class="menu-button" style="margin-bottom: 0;" tabindex="0">Example</div>
         </div>
-        <button onclick="goBack()">Go Back</button>
     </section>
 
     <section id="color-contrast-settings" aria-labelledby="color-contrast-heading" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="color-contrast-heading">COLOR CONTRAST SETTINGS</h1>
         <div class="menu">
             <button class="menu-button" onclick="changeColorScheme('default')">Light Theme</button>
             <button class="menu-button" onclick="changeColorScheme('dark')">Dark Theme</button>
             <button class="menu-button" onclick="changeColorScheme('yellowBlue')">Yellow Blue Theme</button>
         </div>
-        <button onclick="goBack()">Go Back</button>
     </section>
 
     <section id="key-bind-settings" aria-labelledby="key-bind-heading" hidden>
+        <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="key-bind-heading">KEY-BIND SETTINGS</h1>
         <div class="menu" aria-describedby="key-bind-instructions">
             <div id="key-bind-instructions" class="sr-only">
@@ -75,7 +76,6 @@
         <div class="menu">
             <button class="menu-button" onclick="saveKeyBindings()">Save Key Bindings</button>
         </div>
-        <button onclick="goBack()">Go Back</button>
     </section>
 
     <script src='script.js'></script>

@@ -16,28 +16,28 @@ leaderboard = {}
 url = 'http://127.0.0.1:5000/get_coords'
 
 
-def update_coords():
-    try:
-        response = requests.get(url)
-        response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
+# def update_coords():
+#     try:
+#         response = requests.get(url)
+#         response.raise_for_status()  # Raise an exception for HTTP errors (4xx and 5xx)
 
-        json_data = response.json()
+#         json_data = response.json()
 
-        # Now you can access the stored data
-        status = json_data.get('status', '')
-        data = json_data.get('data', {})
+#         # Now you can access the stored data
+#         status = json_data.get('status', '')
+#         data = json_data.get('data', {})
 
-        if status != 'success':
-            print('Error:', json_data.get('message', ''))
+#         if status != 'success':
+#             print('Error:', json_data.get('message', ''))
 
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
+#     except requests.exceptions.RequestException as e:
+#         print(f"Error: {e}")
 
 
-    for i in data:
-        user_data[i] = data[i]
+for i in data:
+    user_data[i] = data[i]
 
-    print(user_data)
+print(user_data)
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(func=update_coords, trigger="interval", seconds=1)

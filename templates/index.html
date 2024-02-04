@@ -11,6 +11,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Maze Game</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static',filename='styles/styles.css') }}">
 </head>
 <body>
@@ -92,6 +93,13 @@
         </div>
     </section>
 
+    <!-- <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID" oninput="checkKey()"></label> -->
+
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <div id="coordinates">
+        <p>X:<span id="x-coordinate">50</span></p>
+        <p>Y:<span id="y-coordinate">50</span></p>
+    </div>
     <script src='/static/script.js'></script>
 </body>
 </html>

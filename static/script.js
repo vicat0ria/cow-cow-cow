@@ -7,6 +7,39 @@ var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
 var level = 0;
+
+var music = {
+    level0: new Howl({
+        src: ['static/audio/level1.mp3'],
+        loop: true,
+        volume: 0,
+        preload: true,
+    }),
+}
+var sfx = {
+    step: new Howl({
+        src: ['static/audio/step.mp3'],
+        volume: 0,
+        preload: true,
+    }),
+    success: new Howl({
+        src: ['static/audio/success.mp3'],
+    }),
+    coin: new Howl({
+        src: ['static/audio/coin-collected.mp3'],
+    }),
+}
+function playMusic1(){
+    music.level0.play();
+}
+function playStep(){
+    sfx.step.play();
+}
+function playSuccess(){
+    // sfx.success.volume(1);
+    sfx.success.play();
+}  
+
 function loadGame() {
     // levelDecision(1);
     document.getElementById('container').style.display = 'none';
@@ -70,13 +103,15 @@ function draw() {
     levelDecision(level);
 
     // Check if the user has reached the hidden object
-    if (userLocation.x == targetLocation.x &&
-        userLocation.y == targetLocation.y) {
-            music.level0.stop();
-            playSuccess();  
-            resetGame()
-            level++;
+    if (userLocation.x == targetLocation.x && userLocation.y == targetLocation.y) {
+        music.level0.stop();
+        playSuccess();  
+        level++;
+        resetGame();
+        alert("next level");
+        startMusic();
     }
+    
     getCoords();
     requestAnimationFrame(draw);
 }
@@ -88,14 +123,11 @@ function resetGame() {
 }
 
 function startMusic(){
-    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
-    //0.16, 0.2, 0.25, 0.33, 0.5, 1
     var maxVolume = 6;
     var step = 1 / maxVolume;
     //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / userSize);
     volumeLevel = 1 - volumeLevel + step;
-    console.log(volumeLevel);
     sfx.step.volume(0.1);
     //sfx.step.volume(volumeLevel);
     music.level0.volume(volumeLevel);
@@ -105,45 +137,44 @@ function startMusic(){
 function changeVolume(){
     var maxVolume = 6;
     var step = 1 / maxVolume;
-    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
     //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / userSize);
     volumeLevel = 1 - volumeLevel + step;
     //sfx.step.volume(volumeLevel);
     music.level0.volume(volumeLevel);
-    console.log(volumeLevel);
 }
-function resetGame() {
-    userLocation = { x: 0, y: 0 };
-}
-var hit = true;
 
+var hit = true;
 document.addEventListener('keydown', (event) => {
+    // const speed = 150;
     // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -150)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -1*userSize)){
                 userLocation.y -= userSize;
                 hit = false;
-            } 
+            } else {hit = true}; // will be changed to voice commands
             break;
         case 'ArrowDown':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, userSize)){
                 userLocation.y += userSize;
                 hit = false;
             }
+            else {hit = true}; // will be changed to voice commands
             break;
         case 'ArrowLeft':
-            if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, -1*userSize, 0)){
                 userLocation.x -= userSize;
                 hit = false;
             }
+            else {hit = true}; // will be changed to voice commands
             break;
         case 'ArrowRight':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, userSize, 0)){
                 userLocation.x += userSize;
                 hit = false;
             }
+            else {hit = true}; // will be changed to voice commands
             break;
     }
     customAlertForBoundaries();
@@ -152,69 +183,14 @@ document.addEventListener('keydown', (event) => {
     }
     changeVolume();
     if(!hit){
-        playStep();
+        // playStep();
+        sfx.step.play()
     }
 
     // update the location: for testing purposes
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
 });
-
-function customAlertForBoundaries(){
-    // customized alert for boundaries
-    if (userLocation.x < 0) {
-        console.log('You are hitting the left wall');
-        userLocation.x = userLocation.x + userSize;
-        hit = true;
-    }
-    if (userLocation.x > 500) {
-        console.log('You are hitting the right wall');
-        userLocation.x = userLocation.x - userSize;
-        hit = true;
-    }
-    if (userLocation.y < 0) {
-        console.log('You are hitting the top wall');
-        userLocation.y = userLocation.y + userSize;
-        hit = true;
-    }
-    if (userLocation.y > 500) {
-        console.log('You are hitting the bottom wall');
-        userLocation.y = userLocation.y - userSize;
-        hit = true;
-    }
-}
-
-var music = {
-    level0: new Howl({
-        src: ['/audio/level1.mp3'],
-        loop: true,
-        volume: 0,
-        preload: true,
-    }),
-}
-var sfx = {
-    step: new Howl({
-        src: ['/audio/step.mp3'],
-        volume: 0,
-        preload: true,
-    }),
-    success: new Howl({
-        src: ['/audio/success.mp3'],
-    }),
-    coin: new Howl({
-        src: ['/audio/coin-collected.mp3'],
-    }),
-}
-function playMusic1(){
-    music.level0.play();
-}
-function playStep(){
-    sfx.step.play();
-}
-function playSuccess(){
-    sfx.success.volume(0.5);
-    sfx.success.play();
-}
 
 function levelDecision(level) {
     switch(level) {
@@ -249,6 +225,7 @@ function levelDecision(level) {
         default: 
             targetLocation = { x: 450, y: 0 };
             userSize = 150;
+            addWalls();
             break;
     }
 }
@@ -488,6 +465,28 @@ function loadUserId() {
     announcePageChange('User ID  page');
     updateTitleAndHeading('Input User ID', 'key-bind-heading');
 }
-
-  
+    
+function customAlertForBoundaries(){
+    // customized alert for boundaries
+    if (userLocation.x < 0) {
+        console.log('You are hitting the left wall');
+        userLocation.x = userLocation.x + userSize;
+        hit = true;
+    }
+    if (userLocation.x > 500) {
+        console.log('You are hitting the right wall');
+        userLocation.x = userLocation.x - userSize;
+        hit = true;
+    }
+    if (userLocation.y < 0) {
+        console.log('You are hitting the top wall');
+        userLocation.y = userLocation.y + userSize;
+        hit = true;
+    }
+    if (userLocation.y > 500) {
+        console.log('You are hitting the bottom wall');
+        userLocation.y = userLocation.y - userSize;
+        hit = true;
+    }
+}
 

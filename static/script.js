@@ -234,14 +234,14 @@ function addWalls(level) {
     switch(level) {
         case 2:
             walls = [];
-            ctx.fillStyle = 'pink';
+            ctx.fillStyle = 'black';
             ctx.fillRect(0, 150, userSize, userSize*3);
             ctx.fillRect(300, 0, userSize, userSize*2);
             walls.push([0,1],[0,2],[0,3],[2,0],[2,1]);
             break;
         case 3:
             walls = [];
-            ctx.fillStyle = 'pink';
+            ctx.fillStyle = 'black';
             ctx.fillRect(150, 0, userSize, userSize);
             ctx.fillRect(450, 150, userSize, userSize);
             ctx.fillRect(0, 300, userSize*4, userSize*2);
@@ -249,7 +249,7 @@ function addWalls(level) {
             break;
         case 4:
             walls = [];
-            ctx.fillStyle = 'pink';
+            ctx.fillStyle = 'black';
             ctx.fillRect(0, 150, userSize*2, userSize*3);
             ctx.fillRect(450, 150, userSize, userSize*3);
             ctx.fillRect(300, 450, userSize, userSize);
@@ -257,7 +257,7 @@ function addWalls(level) {
             break;
         case 5:
             walls = [];
-            ctx.fillStyle = 'pink';
+            ctx.fillStyle = 'black';
             ctx.fillRect(120,0, userSize, userSize*2);
             ctx.fillRect(240, 120, userSize*2, userSize);
             ctx.fillRect(480, 0, userSize, userSize);

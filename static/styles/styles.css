@@ -98,12 +98,14 @@ h2{
     border-color: yellow; 
     outline: 3px solid yellow; 
 }
+<<<<<<<<< Temporary merge branch 1
 #gameCanvas {
     /* width: 800; 
     height: 800; */
     background-color: black; 
     display: none;
-}
+=========
+
 input[type="text"] {
     background-color: var(--background-color);
     color: var(--text-color);
@@ -158,4 +160,5 @@ input[type="text"]:hover {
 
 #create-user-id{
     display:none;
+>>>>>>>>> Temporary merge branch 2
 }

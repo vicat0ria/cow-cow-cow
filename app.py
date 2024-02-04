@@ -8,7 +8,10 @@ user_data = pd.DataFrame({
     "userX": [0],
     "userY": [0],
     "targetX": [0],
-    "targetY": [0]
+    "targetY": [0],
+    "lvl_max": [0],
+    "lvl_curr": [0],
+    "time": [0.0]
 })
 
 # initializing Flask

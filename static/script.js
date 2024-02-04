@@ -6,7 +6,7 @@ var userSize;
 var targetLocation;
 let userLocation = { x: 0, y: 0 };
 let hasWon = false; 
-let level = 0;
+var level = 0;
 function loadGame() {
     // levelDecision(1);
     document.getElementById('container').style.display = 'none';
@@ -17,6 +17,7 @@ function loadGame() {
     announcePageChange('Game');
     updateTitleAndHeading('Game screen', 'canvas-container');
     draw(); 
+    startMusic();
 }
 function loadSettings() {
     document.getElementById('container').style.display = 'none';
@@ -71,12 +72,10 @@ function draw() {
     // Check if the user has reached the hidden object
     if (userLocation.x == targetLocation.x &&
         userLocation.y == targetLocation.y) {
-        alert('Congratulations! You found the hidden object.');
-        resetGame()
-        level++;
-    }
-    if (level > 5) {
-        level = 0;
+            music.level0.stop();
+            playSuccess();  
+            resetGame()
+            level++;
     }
     getCoords();
     requestAnimationFrame(draw);
@@ -88,59 +87,134 @@ function resetGame() {
     document.getElementById('y-coordinate').innerHTML = 0;
 }
 
-document.addEventListener('keydown', (event) => {
-    // const speed = 150;
+function startMusic(){
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //0.16, 0.2, 0.25, 0.33, 0.5, 1
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / userSize);
+    volumeLevel = 1 - volumeLevel + step;
+    console.log(volumeLevel);
+    sfx.step.volume(0.1);
+    //sfx.step.volume(volumeLevel);
+    music.level0.volume(volumeLevel);
+    playMusic1();
+}
 
+function changeVolume(){
+    var maxVolume = 6;
+    var step = 1 / maxVolume;
+    console.log(userLocation.x, targetLocation.x, userLocation.y, targetLocation.x)
+    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
+    var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / userSize);
+    volumeLevel = 1 - volumeLevel + step;
+    //sfx.step.volume(volumeLevel);
+    music.level0.volume(volumeLevel);
+    console.log(volumeLevel);
+}
+function resetGame() {
+    userLocation = { x: 0, y: 0 };
+}
+var hit = true;
+
+document.addEventListener('keydown', (event) => {
     // update the location on screen 
     switch (event.key) {
         case 'ArrowUp':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -1*userSize)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, -150)){
                 userLocation.y -= userSize;
-            }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
+                hit = false;
+            } 
             break;
         case 'ArrowDown':
-            if (!checkWallCollision(userLocation.x, userLocation.y, 0, userSize)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, 0, 150)){
                 userLocation.y += userSize;
+                hit = false;
             }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowLeft':
-            if (!checkWallCollision(userLocation.x, userLocation.y, -1*userSize, 0)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, -150, 0)){
                 userLocation.x -= userSize;
+                hit = false;
             }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
         case 'ArrowRight':
-            if (!checkWallCollision(userLocation.x, userLocation.y, userSize, 0)){
+            if (!checkWallCollision(userLocation.x, userLocation.y, 150, 0)){
                 userLocation.x += userSize;
+                hit = false;
             }
-            else {console.log("Hitting the wall!")}; // will be changed to voice commands
             break;
     }
-
-    // customized alert for boundaries
-    if (userLocation.x < 0) {
-        console.log('You are hitting the left wall');
-        userLocation.x = userLocation.x + userSize;
+    customAlertForBoundaries();
+    if(sfx.step.playing()){
+        sfx.step.stop();
     }
-    if (userLocation.x > 500) {
-        console.log('You are hitting the right wall');
-        userLocation.x = userLocation.x - userSize;
-    }
-    if (userLocation.y < 0) {
-        console.log('You are hitting the top wall');
-        userLocation.y = userLocation.y + userSize;
-    }
-    if (userLocation.y > 500) {
-        console.log('You are hitting the bottom wall');
-        userLocation.y = userLocation.y - userSize;
+    changeVolume();
+    if(!hit){
+        playStep();
     }
 
     // update the location: for testing purposes
     document.getElementById('x-coordinate').innerHTML = userLocation.x; 
     document.getElementById('y-coordinate').innerHTML = userLocation.y;
 });
+
+function customAlertForBoundaries(){
+    // customized alert for boundaries
+    if (userLocation.x < 0) {
+        console.log('You are hitting the left wall');
+        userLocation.x = userLocation.x + userSize;
+        hit = true;
+    }
+    if (userLocation.x > 500) {
+        console.log('You are hitting the right wall');
+        userLocation.x = userLocation.x - userSize;
+        hit = true;
+    }
+    if (userLocation.y < 0) {
+        console.log('You are hitting the top wall');
+        userLocation.y = userLocation.y + userSize;
+        hit = true;
+    }
+    if (userLocation.y > 500) {
+        console.log('You are hitting the bottom wall');
+        userLocation.y = userLocation.y - userSize;
+        hit = true;
+    }
+}
+
+var music = {
+    level0: new Howl({
+        src: ['/audio/level1.mp3'],
+        loop: true,
+        volume: 0,
+        preload: true,
+    }),
+}
+var sfx = {
+    step: new Howl({
+        src: ['/audio/step.mp3'],
+        volume: 0,
+        preload: true,
+    }),
+    success: new Howl({
+        src: ['/audio/success.mp3'],
+    }),
+    coin: new Howl({
+        src: ['/audio/coin-collected.mp3'],
+    }),
+}
+function playMusic1(){
+    music.level0.play();
+}
+function playStep(){
+    sfx.step.play();
+}
+function playSuccess(){
+    sfx.success.volume(0.5);
+    sfx.success.play();
+}
 
 function levelDecision(level) {
     switch(level) {
@@ -287,49 +361,37 @@ function changeColorScheme(scheme) {
   }
   
     
-    let navigationStack = ['container']; // Initial page
+let navigationStack = ['container']; // Initial page
 
-    function navigateTo(pageId, isBackNavigation = false) {
-        // Hide the current page
-        if (navigationStack.length > 0) {
-            const currentTopId = navigationStack[navigationStack.length - 1];
-            document.getElementById(currentTopId).style.display = 'none';
-        }
-    
-        // Show the new page
-        document.getElementById(pageId).style.display = 'flex';
-    
-        if (!isBackNavigation) { // Only push to stack if not navigating back
-            // Push the new page onto the stack, if not already there as the last entry
-            if (navigationStack[navigationStack.length - 1] !== pageId) {
-                navigationStack.push(pageId);
-            }
-        }
-    
-        // Focus management
-        const targetSection = document.getElementById(pageId);
-        if (targetSection) {
-            targetSection.setAttribute('tabindex', '-1');
-            targetSection.focus();
-            targetSection.removeAttribute('tabindex');
-        }
-    
-        // Announce the page change to screen readers correctly
-        announcePageChange(pageId, isBackNavigation);
+function navigateTo(pageId, isBackNavigation = false) {
+    // Hide the current page
+    if (navigationStack.length > 0) {
+        const currentTopId = navigationStack[navigationStack.length - 1];
+        document.getElementById(currentTopId).style.display = 'none';
     }
-    
-    
-// function goBack() {
-//     if (navigationStack.length > 1) {
-//         // Remove the current page from the stack
-//         let currentPageId = navigationStack.pop();
-//         document.getElementById(currentPageId).setAttribute('hidden', true);
 
-//         // Get the previous page ID
-//         let previousPageId = navigationStack[navigationStack.length - 1];
-//         navigateTo(previousPageId, true); // Pass true for isBackNavigation
-//     }
-// }
+    // Show the new page
+    document.getElementById(pageId).style.display = 'flex';
+
+    if (!isBackNavigation) { // Only push to stack if not navigating back
+        // Push the new page onto the stack, if not already there as the last entry
+        if (navigationStack[navigationStack.length - 1] !== pageId) {
+            navigationStack.push(pageId);
+        }
+    }
+
+    // Focus management
+    const targetSection = document.getElementById(pageId);
+    if (targetSection) {
+        targetSection.setAttribute('tabindex', '-1');
+        targetSection.focus();
+        targetSection.removeAttribute('tabindex');
+    }
+
+    // Announce the page change to screen readers correctly
+    announcePageChange(pageId, isBackNavigation);
+}
+    
 function goBack() {
     if (navigationStack.length > 1) {
         // Remove the current page from the stack
@@ -420,4 +482,12 @@ function updateTitleAndHeading(newTitle, headingId) {
         heading.focus(); // Move focus to the new heading
     }
 }
+function loadUserId() {
+    document.getElementById('container').style.display = 'none';
+    document.getElementById('create-user-id').style.display = 'flex';
+    announcePageChange('User ID  page');
+    updateTitleAndHeading('Input User ID', 'key-bind-heading');
+}
+
+  
 

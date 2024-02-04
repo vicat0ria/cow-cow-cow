@@ -24,10 +24,11 @@ HTTPS:
 `cd cow-cow-cow`
 
 3. Install dependencies:
-`pip install -r requirements.txt`
+`pip install pandas`
+`pip install Flask`
 
 4. Run the application:
-`flask run`
+`python3 app.py`
 
-5. Open your web browser and navigate to [URL HERE] to start playing!
+5. Open your web browser and navigate to `http://127.0.0.1:5000` to start playing!
 

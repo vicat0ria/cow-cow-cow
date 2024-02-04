@@ -23,7 +23,7 @@ var sfx = {
         preload: true,
     }),
     success: new Howl({
-        src: ['static/audio/success.mp3'],
+        src: ['static/audio/success_editted.mp3'],
     }),
     coin: new Howl({
         src: ['static/audio/coin-collected.mp3'],
@@ -108,8 +108,11 @@ function draw() {
         playSuccess();  
         level++;
         resetGame();
+        changeVolume();
         alert("next level");
+        changeVolume();
         startMusic();
+        changeVolume();
     }
     
     getCoords();
@@ -120,24 +123,33 @@ function resetGame() {
     userLocation = { x: 0, y: 0 };
     document.getElementById('x-coordinate').innerHTML = 0; 
     document.getElementById('y-coordinate').innerHTML = 0;
+    music.level0.stop();
 }
 
 function startMusic(){
-    var maxVolume = 6;
+    var maxVolume;
+    if(level <= 4){
+        maxVolume = 6;
+    } else if(level >= 5 && level < 10){
+        maxVolume = 8;
+    }
     var step = 1 / maxVolume;
-    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / userSize);
     volumeLevel = 1 - volumeLevel + step;
+    music.level0.volume(volumeLevel);
     sfx.step.volume(0.1);
     //sfx.step.volume(volumeLevel);
-    music.level0.volume(volumeLevel);
     playMusic1();
 }
 
 function changeVolume(){
-    var maxVolume = 6;
+    var maxVolume;
+    if(level <= 4){
+        maxVolume = 6;
+    } else if(level >= 5 && level < 10){
+        maxVolume = 8;
+    }
     var step = 1 / maxVolume;
-    //var volumeLevel = 1 / ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / 150);
     var volumeLevel = step * ((Math.abs(userLocation.x - targetLocation.x) + Math.abs(userLocation.y - targetLocation.y)) / userSize);
     volumeLevel = 1 - volumeLevel + step;
     //sfx.step.volume(volumeLevel);

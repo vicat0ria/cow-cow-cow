@@ -35,7 +35,7 @@
         </div>
     </section>
 
-    <section id="create-user-id" aria-labelledby="create-user-id" hidden>
+    <section id="create-user-id" aria-labelledby="create-user-id-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="create-user-id-heading">Create a User ID</h1>
         <div class="menu" aria-describedby="user-id-instructions">
@@ -45,9 +45,26 @@
             <p>Enter a unique user ID to save your progress.</p>
             <label for="input-user"><input id="input-user" type="text" placeholder="Input User ID" aria-label="Input User ID" onkeydown="checkKey()"></label>
         </div>
-
     </section>
     
+    <section id="level-select" aria-labelledby="level-select-header" hidden>
+        <div class = "level-select-header"> 
+            <h1>LEVEL SELECT</h1>
+            <h2>Select what level you would like to play.</h2>
+        </div>
+  
+        <div class="levels-grid-container"> 
+            <button class="levels-button" onclick="loadGame()">1</button>
+            <button class="levels-button" onclick="loadGame()">2</button>
+            <button class="levels-button" onclick="loadGame()">3</button>
+            <button class="levels-button" onclick="loadGame()">4</button>
+            <button class="levels-button" onclick="loadGame()">5</button>
+            <button class="levels-button" onclick="loadGame()">6</button>
+            <button class="levels-button" onclick="loadGame()">7</button>
+            <button class="levels-button" onclick="loadGame()">8</button>
+        </div>
+    </section>
+
     <section id="settings" aria-labelledby="settings-heading" hidden>
         <button class="back" onclick="goBack()">&#8249; Back</button>
         <h1 id="settings-heading">SETTINGS</h1>

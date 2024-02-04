@@ -29,15 +29,20 @@ def receive_value():
     try:
         data = request.get_json()
         # fill in the dataframe
+        # print(data)
+        # print(user_data)
         for i in data:
             user_data[i] = data[i]
         # saves only current user progress into the CSV
         csv_line = user_data.loc[user_data['username'] == "test"]
+        if int( csv_line['lvl_curr']) >= int(csv_line['lvl_max']):
+            csv_line['lvl_max'] = csv_line['lvl_curr']
         # converting dataframe into CSV
         csv_line.to_csv("user_data.csv", index=False)
         return data 
     except Exception as e:
         result = {'status': 'error', 'message': str(e)}
+        print(str(e))
         return jsonify(result), 500
     
 

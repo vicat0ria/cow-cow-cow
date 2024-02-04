@@ -114,7 +114,11 @@ h2{
     border-color: yellow; 
     outline: 3px solid yellow; 
 }
-<<<<<<< HEAD:static/styles/styles.css
+#canvas-container{
+    display:flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
 #gameCanvas {
     /* width: 800; 
     height: 800; */
@@ -125,7 +129,6 @@ h2{
 #coordinates {
     display: none;
 }
-=======
 
 input[type="text"] {
     background-color: var(--background-color);
@@ -180,7 +183,6 @@ input[type="text"]:hover {
 }
 
 #settings, #font-size-settings, #color-contrast-settings,
-#key-bind-settings{
+#key-bind-settings, #canvas-container{
     display:none;
 }
->>>>>>> frontend:styles.css

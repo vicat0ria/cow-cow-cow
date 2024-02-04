@@ -1,5 +1,8 @@
 # Accessbility Maze Game Team 02
 
+## Members
+Victoria Miteva, Luis Olmos, Vaishnavi Sen, Thomas Chor, Anastasiia Kiseleva
+
 ## Purpose of the Game
 - The purpose of creating this game for individuals with visual impairments is to promote inclusivity and accessibility in the gaming experience – addressing the need for immersive entertainment to foster a sense of independence and enjoyment in interactive digital environments.
 
@@ -86,6 +89,8 @@ MacOS: `python3 app.py`
 ## Additional Features
 
 - As players advance through increasingly difficult levels, our future plans involve introducing a greater variety of obstacles. One proposed addition is the inclusion of fire hazards within the game. These hazards pose a threat to users, causing their character to be "killed" and resetting their progress for the current level. If a user experiences three or more deaths in a single level, their overall progress will be reduced by two levels. 
+
+- We would like to develop a theme or story for the game, besides additional characters, graphics, sounds, etc. This also supports multiplayer mode. 
 
 - We are keen on integrating voice commands to enhance the game's accessibility by eliminating the need for traditional keyboard inputs. These voice commands could be utilized to communicate game instructions and assist users in navigating through different levels, while also giving them a chance to speak what moves they want to make. This will also make loggin into the accounts easier for users without keyboard. 
 

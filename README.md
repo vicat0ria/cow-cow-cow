@@ -105,3 +105,6 @@ MacOS: `python3 app.py`
 - We are keen on integrating voice commands to enhance the game's accessibility by eliminating the need for traditional keyboard inputs. These voice commands could be utilized to communicate game instructions and assist users in navigating through different levels, while also giving them a chance to speak what moves they want to make. This will also make loggin into the accounts easier for users without keyboard. 
 
 - To enhance the game's excitement, we aim to explore the possibility of randomizing key elements such as the target location, user starting position, and the placement of obstacles on the map. 
+
+
+# testing stuff - will remove
